@@ -88,7 +88,7 @@ void Player::PlayerUpdate()
 		{
 			if (FireCoolDown == 0)
 			{
-				MissileStore.emplace_back(new Missile("assets/missle.png", RenderPlayer, this));
+				MissileStore.emplace_back(new Missile("assets/texture/missle.png", RenderPlayer, this));
 				FireCoolDown = 15 - fcd;
 			}
 		}

@@ -79,14 +79,14 @@
 
 		EnemiesView = { 100, 0, width, height};
 
-		player = new Player("assets/jett.png", renderer);
-		missle = new Missile("assets/missle.png", renderer, player);
+		player = new Player("assets/texture/jett.png", renderer);
+		missle = new Missile("assets/texture/missle.png", renderer, player);
 		map = new Map(renderer, EneHealth, BulletDelayFrame, BulletSpeed);
 		map->LoadMap(player);
 
-		Explosion1 = TextureMana::TextureLoader("assets/explosion1.png", renderer);
-		Explosion2 = TextureMana::TextureLoader("assets/explosion2.png", renderer);
-		Explosion3 = TextureMana::TextureLoader("assets/explosion3.png", renderer);
+		Explosion1 = TextureMana::TextureLoader("assets/texture/explosion1.png", renderer);
+		Explosion2 = TextureMana::TextureLoader("assets/texture/explosion2.png", renderer);
+		Explosion3 = TextureMana::TextureLoader("assets/texture/explosion3.png", renderer);
 	}
 
 
@@ -184,24 +184,24 @@
 						EneColliDes = (*ene)->GetErect();
 						EneColliDes.x += 6;
 
-						if (rand() % 100 < 90)
+						if (rand() % 100 < 10)
 						{
 							int itemchoices = rand() % 4 + 1;
 							if (itemchoices == 1)
 							{
-								drop_store.emplace_back(new Drop("assets/heart.png", renderer, (*ene)));
+								drop_store.emplace_back(new Drop("assets/texture/heart.png", renderer, (*ene)));
 							}
 							if (itemchoices == 2)
 							{
-								drop_store.emplace_back(new Drop("assets/speed.png", renderer, (*ene)));
+								drop_store.emplace_back(new Drop("assets/texture/speed.png", renderer, (*ene)));
 							}
 							if (itemchoices == 3)
 							{
-								drop_store.emplace_back(new Drop("assets/velo.png", renderer, (*ene)));
+								drop_store.emplace_back(new Drop("assets/texture/velo.png", renderer, (*ene)));
 							}
 							if (itemchoices == 4)
 							{
-								drop_store.emplace_back(new Drop("assets/damage.png", renderer, (*ene)));
+								drop_store.emplace_back(new Drop("assets/texture/damage.png", renderer, (*ene)));
 							}
 						}
 
@@ -255,7 +255,7 @@
 			}
 
 			delete player;
-			player = new Player("assets/jett.png", renderer);
+			player = new Player("assets/texture/jett.png", renderer);
 		}
 
 		missle->MissileUpdate();

@@ -41,7 +41,7 @@ Enemies::Enemies(const char* filename, SDL_Renderer* ren, int i, int j, int fram
 
 	bullet_speed = bullet_velo;
 
-	bullet = new EnemiesBullet("assets/lazer.png",eren, bullet_speed, this);
+	bullet = new EnemiesBullet("assets/texture/lazer.png",eren, bullet_speed, this);
 }
  
 void Enemies::eneDestroy()
@@ -100,7 +100,7 @@ bool Enemies::Collision(SDL_Rect& a, SDL_Rect& b)
 
 void Enemies::FireBullet(Enemies& enemy)
 {
-		BulletStore.emplace_back(new EnemiesBullet("assets/lazer.png", eren, bullet_speed, this));
+		BulletStore.emplace_back(new EnemiesBullet("assets/texture/lazer.png", eren, bullet_speed, this));
 }
 
 void Enemies::EnemiesUpdate()
@@ -125,7 +125,7 @@ void Enemies::EnemiesUpdate()
 
 	if (appear)
 	{
-		if (rand() % (3000 - BulletDelayTime) < 1)
+		if (rand() % (2500 - BulletDelayTime) < 1)
 		{
 			FireBullet(*this);
 		}
@@ -208,11 +208,11 @@ bool& Enemies::GetPlayerStatus()
 
 int Enemies::GetEValue()
 {
-	if (link == "assets/ufo.png")
+	if (link == "assets/texture/ufo.png")
 	{
 		return 100;
 	}
-	else if (link == "assets/ufo1.png")
+	else if (link == "assets/texture/ufo1.png")
 	{
 		return 200;
 	}

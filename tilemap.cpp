@@ -45,15 +45,15 @@ void Map::LoadMap(Player* player)
 		{
 			if (layout[i][j] == 1)
 			{
-				estore.emplace_back(new Enemies("assets/ufo.png", render, i, j, 5, EneHealth, BulletDelayTime, BulletSpeed, player));
+				estore.emplace_back(new Enemies("assets/texture/ufo.png", render, i, j, 5, EneHealth, BulletDelayTime, BulletSpeed, player));
 			}
 			if (layout[i][j] == 2)
 			{
-				estore.emplace_back(new Enemies("assets/ufo1.png", render, i, j, 5,EneHealth, BulletDelayTime, BulletSpeed, player));
+				estore.emplace_back(new Enemies("assets/texture/ufo1.png", render, i, j, 5,EneHealth, BulletDelayTime, BulletSpeed, player));
 			}
 			if (layout[i][j] == 3)
 			{
-				estore.emplace_back(new Enemies("assets/alien.png", render, i, j, 5,EneHealth, BulletDelayTime, BulletSpeed, player));
+				estore.emplace_back(new Enemies("assets/texture/alien.png", render, i, j, 5,EneHealth, BulletDelayTime, BulletSpeed, player));
 			}
 		}
 	}

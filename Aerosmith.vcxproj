@@ -151,6 +151,7 @@
     <ClInclude Include="EnemiesBullet.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Missle.h" />
+    <ClInclude Include="Music.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="TextureManagement.h" />
     <ClInclude Include="Tilemap.h" />

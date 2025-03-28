@@ -61,19 +61,19 @@ bool Drop::CheckCollison(SDL_Rect a, SDL_Rect b)
 
 int Drop::Boost()
 {
-	if (drop_object == "assets/heart.png")
+	if (drop_object == "assets/texture/heart.png")
 	{
 		return 1;
 	}
-	else if (drop_object == "assets/speed.png")
+	else if (drop_object == "assets/texture/speed.png")
 	{
 		return 2;
 	}
-	else if (drop_object == "assets/damage.png")
+	else if (drop_object == "assets/texture/damage.png")
 	{
 		return 3;
 	}
-	else if (drop_object == "assets/velo.png")
+	else if (drop_object == "assets/texture/velo.png")
 	{
 		return 4;
 	}
