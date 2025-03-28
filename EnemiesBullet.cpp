@@ -2,7 +2,7 @@
 
 using namespace std;
 
-EnemiesBullet::EnemiesBullet(const char* filename, SDL_Renderer* ren, Enemies * enemies)
+EnemiesBullet::EnemiesBullet(const char* filename, SDL_Renderer* ren, int bullet_speed, Enemies* enemies)
 {
 	bulletren = ren;
 	bulltext = TextureMana::TextureLoader(filename, bulletren);
@@ -11,6 +11,7 @@ EnemiesBullet::EnemiesBullet(const char* filename, SDL_Renderer* ren, Enemies * 
 	ypos = enemies-> GetErect().y + 10;
 	src = { 0, 0, 39, 40 };
 	dest = { (int)xpos, (int)ypos, src.w, src.h };
+	velocity = bullet_speed;
 
 }
 

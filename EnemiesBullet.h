@@ -8,7 +8,7 @@ class Enemies;
 class EnemiesBullet
 {
 public:
-	EnemiesBullet(const char* filename, SDL_Renderer* ren, Enemies * enemies);
+	EnemiesBullet(const char* filename, SDL_Renderer* ren, int bullet_speed, Enemies* enemies);
 	~EnemiesBullet();
 
 	void BulletUpdate();
@@ -21,7 +21,7 @@ public:
 
 private:
 	double xpos, ypos;
-	int velocity = 3;
+	int velocity;
 	const double width = 39;
 	const double height = 40;
 	bool IsActive = false;

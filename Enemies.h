@@ -20,7 +20,7 @@ class Missile;
 class Enemies
 {
 public:
-	Enemies(const char* filename, SDL_Renderer* ren, int i, int j, int frame_num,int ene_health, int bullet_delay, Player* playerptr);
+	Enemies(const char* filename, SDL_Renderer* ren, int i, int j, int frame_num,int ene_health, int bullet_delay, int bullet_velo, Player* playerptr);
 	~Enemies();
 
 	void EnemiesUpdate();
@@ -49,6 +49,7 @@ private:
 	bool appear = false;
 	int EnemiesValue;
 	int BulletDelayTime;
+	int bullet_speed;
 
 	std::string link;
 	std::vector<EnemiesBullet*> BulletStore;

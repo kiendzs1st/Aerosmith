@@ -7,11 +7,12 @@ using namespace std;
 int layout[5][11] = { 0 };
 
 
-Map::Map(SDL_Renderer* ren, int ene_health, int BulletDelay)
+Map::Map(SDL_Renderer* ren, int ene_health, int BulletDelay, int BulletVelo)
 {
 	render = ren;
 	EneHealth = ene_health;
 	BulletDelayTime = BulletDelay;
+	BulletSpeed = BulletVelo;
 }
 
 Map::~Map()
@@ -44,15 +45,15 @@ void Map::LoadMap(Player* player)
 		{
 			if (layout[i][j] == 1)
 			{
-				estore.emplace_back(new Enemies("assets/ufo.png", render, i, j, 5, EneHealth, BulletDelayTime, player));
+				estore.emplace_back(new Enemies("assets/ufo.png", render, i, j, 5, EneHealth, BulletDelayTime, BulletSpeed, player));
 			}
 			if (layout[i][j] == 2)
 			{
-				estore.emplace_back(new Enemies("assets/ufo1.png", render, i, j, 5,EneHealth, BulletDelayTime, player));
+				estore.emplace_back(new Enemies("assets/ufo1.png", render, i, j, 5,EneHealth, BulletDelayTime, BulletSpeed, player));
 			}
 			if (layout[i][j] == 3)
 			{
-				estore.emplace_back(new Enemies("assets/alien.png", render, i, j, 5,EneHealth, BulletDelayTime, player));
+				estore.emplace_back(new Enemies("assets/alien.png", render, i, j, 5,EneHealth, BulletDelayTime, BulletSpeed, player));
 			}
 		}
 	}

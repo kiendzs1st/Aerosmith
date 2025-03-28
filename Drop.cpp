@@ -77,6 +77,7 @@ int Drop::Boost()
 	{
 		return 4;
 	}
+	return 0;
 }
 
 void Drop::Update()

@@ -34,6 +34,7 @@ private :
 	int health = 3;
 	int EneHealth = 3;
 	int BulletDelayFrame = 0;
+	int BulletSpeed = 4;
 	bool isRunning;
 	bool IsMisExplose;
 	bool IsEneExplose;

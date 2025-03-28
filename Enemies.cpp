@@ -10,7 +10,7 @@ Animation EniAni = { 64, 64 };
 EnemiesBullet* bullet = nullptr;
 
 
-Enemies::Enemies(const char* filename, SDL_Renderer* ren, int i, int j, int frame_num, int ene_health, int bullet_delay, Player* playerptr)
+Enemies::Enemies(const char* filename, SDL_Renderer* ren, int i, int j, int frame_num, int ene_health, int bullet_delay, int bullet_velo, Player* playerptr)
 {
 	eren = ren;
 	etext = TextureMana::TextureLoader(filename, eren);
@@ -30,7 +30,6 @@ Enemies::Enemies(const char* filename, SDL_Renderer* ren, int i, int j, int fram
 
 	EneHitbox = { (int)expos + 94, (int)eypos, 64, 64 };
 
-	bullet = new EnemiesBullet("assets/lazer.png", eren, this);
 
 	player = playerptr;
 
@@ -39,6 +38,10 @@ Enemies::Enemies(const char* filename, SDL_Renderer* ren, int i, int j, int fram
 	EneHealth = ene_health;
 
 	BulletDelayTime = bullet_delay;
+
+	bullet_speed = bullet_velo;
+
+	bullet = new EnemiesBullet("assets/lazer.png",eren, bullet_speed, this);
 }
  
 void Enemies::eneDestroy()
@@ -97,7 +100,7 @@ bool Enemies::Collision(SDL_Rect& a, SDL_Rect& b)
 
 void Enemies::FireBullet(Enemies& enemy)
 {
-		BulletStore.emplace_back(new EnemiesBullet("assets/lazer.png", eren, this));
+		BulletStore.emplace_back(new EnemiesBullet("assets/lazer.png", eren, bullet_speed, this));
 }
 
 void Enemies::EnemiesUpdate()

@@ -81,7 +81,7 @@
 
 		player = new Player("assets/jett.png", renderer);
 		missle = new Missile("assets/missle.png", renderer, player);
-		map = new Map(renderer, EneHealth, BulletDelayFrame);
+		map = new Map(renderer, EneHealth, BulletDelayFrame, BulletSpeed);
 		map->LoadMap(player);
 
 		Explosion1 = TextureMana::TextureLoader("assets/explosion1.png", renderer);
@@ -341,20 +341,27 @@
 		if (IsRespawning && SDL_GetTicks() - RespawnTime > 2000)
 		{
 			wave++;
+			cout << "Wave : " << wave << endl;
 			if (wave % 2 == 0)
 			{
 				if (EneHealth < 10)
 				{
 					EneHealth++;
+					cout << "Enemies' health: " << EneHealth << endl;
 				}
 				if (BulletDelayFrame <= 2000)
 				{
 					BulletDelayFrame += 500;
+					cout << "BulletCoolDown: " << 3000 - BulletDelayFrame << endl;
 				}
-				
+				if (BulletSpeed < 10)
+				{
+					BulletSpeed += 2;
+					cout << "Bullet Speed: " << BulletSpeed << endl;
+				}
 			}
 			delete map;
-			map = new Map(renderer, EneHealth, BulletDelayFrame);
+			map = new Map(renderer, EneHealth, BulletDelayFrame, BulletSpeed);
 			map->LoadMap(player);
 			IsRespawning = false;
 

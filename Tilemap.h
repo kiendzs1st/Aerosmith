@@ -12,7 +12,7 @@ class Player;
 class Map
 {
 public:
-	Map(SDL_Renderer* ren, int ene_health, int BulletDelay);
+	Map(SDL_Renderer* ren, int ene_health, int BulletDelay, int BulletVelo);
 	~Map();
 
 	void LoadMap(Player* player);
@@ -33,6 +33,7 @@ private:
 
 	int EneHealth;
 	int BulletDelayTime;
+	int BulletSpeed;
 	const int row = 4;
 	const int column = 11;
 	int count = row * column;
