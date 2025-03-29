@@ -24,6 +24,7 @@ Player::Player(const char* titlesheet, SDL_Renderer* ren)
 	PlayerHitBox = { desrc.x - 94, desrc.y, desrc.w - 20, desrc.h };
 
 	Music::GetInstance().SoundLoader("shoot", "assets/music/lasergun.mp3");
+	Mix_AllocateChannels(16);
 }
 
 Player::~Player()
@@ -101,7 +102,7 @@ void Player::PlayerUpdate()
 
 		if (xpos < 100) xpos = 100;
 		if (ypos < 720 / 2) ypos = 720 / 2;
-		if (xpos + desrc.w > 1000) xpos = 1000 - desrc.w;
+		if (xpos + desrc.w > 1050) xpos = 1050 - desrc.w;
 		if (ypos + desrc.h > 720) ypos = 720 - desrc.h;
 
 		desrc.x = (int)xpos - x_origin;

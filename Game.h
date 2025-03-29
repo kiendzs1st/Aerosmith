@@ -29,6 +29,10 @@ private :
 	SDL_Window* window;
 
 	std::vector<Drop*> drop_store;
+	int bgY1 = 0;
+	int bgY2 = -720;
+	int bgSpeed = 3;
+	const int bgHeight = 2160;
 	int score = 0;
 	int wave = 1;
 	int health = 3;

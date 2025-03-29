@@ -23,6 +23,7 @@
 	SDL_Texture* Explosion1 = nullptr;
 	SDL_Texture* Explosion2 = nullptr;
 	SDL_Texture* Explosion3 = nullptr;
+	SDL_Texture* Background = nullptr;
 	
 	Uint32 MisAnimationStart = SDL_GetTicks();
 	Uint32 EneAnimationStart = SDL_GetTicks();
@@ -88,11 +89,12 @@
 		Explosion1 = TextureMana::TextureLoader("assets/texture/explosion1.png", renderer);
 		Explosion2 = TextureMana::TextureLoader("assets/texture/explosion2.png", renderer);
 		Explosion3 = TextureMana::TextureLoader("assets/texture/explosion3.png", renderer);
+		Background = TextureMana::TextureLoader("assets/texture/bg.png", renderer);
 
 		Music::GetInstance().SoundLoader("hit", "assets/music/hit.mp3");
-		Music::GetInstance().MusicLoader("background1", "assets/music/background1.mp3");
 		Music::GetInstance().SoundLoader("explosion", "assets/music/explosion1.mp3");
 		Music::GetInstance().SoundLoader("ting", "assets/music/ting.mp3");
+		Music::GetInstance().MusicLoader("background1", "assets/music/background1.mp3");
 	}
 
 
@@ -245,8 +247,19 @@
 	void Game::update() 
 	{
 
-		Music::GetInstance().PlayMusic("background1");
+		bgY1 += bgSpeed;
+		bgY2 += bgSpeed;
+		if (bgY1 >= 720) {
+			bgY1 = bgY2 - 720;
+		}
+		if (bgY2 >= 720) {
+			bgY2 = bgY1 - 720;
+		}
 
+		if (Mix_PlayingMusic() == 0)
+		{
+			Music::GetInstance().PlayMusic("background1");
+		}
 		desrect.h = desrect.w = 32;
 		player->PlayerUpdate();
 		if ((player->PlayerIsDamaged() && health > 0) )
@@ -403,10 +416,15 @@
 	void Game::render() 
 	{
 		SDL_RenderClear(renderer);
+		SDL_Rect bgRect1 = { 0, bgY1, 1080, 720 };
+		SDL_Rect bgRect2 = { 0, bgY2, 1080, 720 };
+		SDL_RenderCopy(renderer, Background, NULL, &bgRect1);
+		SDL_RenderCopy(renderer, Background, NULL, &bgRect2);
 
 		SDL_RenderSetViewport(renderer, &EnemiesView);
 		map->MapRenderEnemies();
 		SDL_RenderSetViewport(renderer, NULL);
+
 
 		for (auto drop = drop_store.begin(); drop != drop_store.end(); drop++)
 		{
@@ -430,6 +448,7 @@
 		}
 
 		player->PlayerRender();
+		
 		SDL_RenderPresent(renderer);
 
 	}
