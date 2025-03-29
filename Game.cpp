@@ -58,7 +58,7 @@
 				cout << SDL_GetError();
 			}
 			else {
-				SDL_SetRenderDrawColor ( renderer,  255,255,255,255 );
+				SDL_SetRenderDrawColor ( renderer,  0,0,0,255 );
 			}
 			isRunning = true;
 		
@@ -89,7 +89,7 @@
 		Explosion1 = TextureMana::TextureLoader("assets/texture/explosion1.png", renderer);
 		Explosion2 = TextureMana::TextureLoader("assets/texture/explosion2.png", renderer);
 		Explosion3 = TextureMana::TextureLoader("assets/texture/explosion3.png", renderer);
-		Background = TextureMana::TextureLoader("assets/texture/bg.png", renderer);
+		Background = TextureMana::TextureLoader("assets/texture/bg2.png", renderer);
 
 		Music::GetInstance().SoundLoader("hit", "assets/music/hit.mp3");
 		Music::GetInstance().SoundLoader("explosion", "assets/music/explosion1.mp3");
@@ -417,7 +417,7 @@
 	{
 		SDL_RenderClear(renderer);
 		SDL_Rect bgRect1 = { 0, bgY1, 1080, 720 };
-		SDL_Rect bgRect2 = { 0, bgY2, 1080, 720 };
+		SDL_Rect bgRect2 = { 0, bgY2 , 1080, 720 };
 		SDL_RenderCopy(renderer, Background, NULL, &bgRect1);
 		SDL_RenderCopy(renderer, Background, NULL, &bgRect2);
 
