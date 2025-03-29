@@ -23,6 +23,9 @@ public:
 	void StopMusic();
 	void StopSound();
 
+	void MusicVolume();
+	void SoundVolume();
+
 private:
 	Music();
 	unordered_map<string, Mix_Music*> music_store;

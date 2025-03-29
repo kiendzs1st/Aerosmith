@@ -88,6 +88,9 @@
 		Explosion1 = TextureMana::TextureLoader("assets/texture/explosion1.png", renderer);
 		Explosion2 = TextureMana::TextureLoader("assets/texture/explosion2.png", renderer);
 		Explosion3 = TextureMana::TextureLoader("assets/texture/explosion3.png", renderer);
+
+		Music::GetInstance().SoundLoader("hit", "assets/music/hit.mp3");
+		Music::GetInstance().MusicLoader("background1", "assets/music/background1.mp3");
 	}
 
 
@@ -173,6 +176,7 @@
 					if (DamageEnemies)
 					{
 						(*ene)->IsDamaged();
+						Music::GetInstance().PlaySound("hit");
 					}
 
 					(*mis)->misDestroy();
@@ -234,7 +238,10 @@
 
 	}
 
-	void Game::update() {
+	void Game::update() 
+	{
+
+		Music::GetInstance().PlayMusic("background1");
 
 		desrect.h = desrect.w = 32;
 		player->PlayerUpdate();
