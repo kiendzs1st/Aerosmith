@@ -3,6 +3,7 @@
 	#include "Player.h"
 	#include "Missle.h"
 	#include "tilemap.h"
+	#include "Music.h"
 
 	using namespace std;
 

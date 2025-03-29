@@ -1,5 +1,6 @@
 #pragma once
 #include "TextureManagement.h"
+#include "Music.h"
 #include "Animation.h"
 #include "Missle.h"
 #include "Enemies.h"

@@ -22,6 +22,8 @@ Player::Player(const char* titlesheet, SDL_Renderer* ren)
 	srcrc = { 0, 0, 64, 64 };
 	desrc = { (int) xpos - x_origin, (int) ypos - y_origin ,srcrc.w, srcrc.h}; 
 	PlayerHitBox = { desrc.x - 94, desrc.y, desrc.w - 20, desrc.h };
+
+	Music::GetInstance().SoundLoader("shoot", "assets/music/lasergun.mp3");
 }
 
 Player::~Player()
@@ -88,6 +90,7 @@ void Player::PlayerUpdate()
 		{
 			if (FireCoolDown == 0)
 			{
+				Music::GetInstance().PlaySound("shoot");
 				MissileStore.emplace_back(new Missile("assets/texture/missle.png", RenderPlayer, this));
 				FireCoolDown = 15 - fcd;
 			}

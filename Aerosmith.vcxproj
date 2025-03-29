@@ -139,6 +139,7 @@
     <ClCompile Include="EnemiesBullet.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Missile.cpp" />
+    <ClCompile Include="Music.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="TextureManagement.cpp" />
     <ClCompile Include="tilemap.cpp" />
