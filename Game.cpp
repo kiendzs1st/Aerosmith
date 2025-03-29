@@ -91,6 +91,8 @@
 
 		Music::GetInstance().SoundLoader("hit", "assets/music/hit.mp3");
 		Music::GetInstance().MusicLoader("background1", "assets/music/background1.mp3");
+		Music::GetInstance().SoundLoader("explosion", "assets/music/explosion1.mp3");
+		Music::GetInstance().SoundLoader("ting", "assets/music/ting.mp3");
 	}
 
 
@@ -185,6 +187,8 @@
 
 					if ((*ene)->getHealth() <= 0)
 					{
+						Music::GetInstance().PlaySound("explosion");
+
 						EneColliSrc = (*ene)->GetEsrc();
 						EneColliDes = (*ene)->GetErect();
 						EneColliDes.x += 6;
@@ -248,6 +252,7 @@
 		if ((player->PlayerIsDamaged() && health > 0) )
 		{
 			health--;
+			Music::GetInstance().PlaySound("explosion");
 			if (health == 0)
 			{
 				isRunning = false;
@@ -272,6 +277,9 @@
 		{
 			if ((*drop)->CheckCollison(player->getPlayerRect(), (*drop)->DropHitBox()))
 			{
+
+				Music::GetInstance().PlaySound("ting");
+
 				if ((*drop)->Boost() == 1 && health < 5)
 				{
 					health++;

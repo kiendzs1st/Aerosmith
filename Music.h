@@ -23,8 +23,6 @@ public:
 	void StopMusic();
 	void StopSound();
 
-	void MusicVolume();
-	void SoundVolume();
 
 private:
 	Music();

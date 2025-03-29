@@ -42,6 +42,8 @@ Enemies::Enemies(const char* filename, SDL_Renderer* ren, int i, int j, int fram
 	bullet_speed = bullet_velo;
 
 	bullet = new EnemiesBullet("assets/texture/lazer.png",eren, bullet_speed, this);
+
+	Music::GetInstance().SoundLoader("laser", "assets/music/laser.mp3");
 }
  
 void Enemies::eneDestroy()
@@ -128,6 +130,7 @@ void Enemies::EnemiesUpdate()
 		if (rand() % (2500 - BulletDelayTime) < 1)
 		{
 			FireBullet(*this);
+			Music::GetInstance().PlaySound("laser");
 		}
 		SDL_Rect PlayerRect = player->getPlayerRect();
 
