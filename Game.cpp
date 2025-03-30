@@ -89,7 +89,7 @@
 		Explosion1 = TextureMana::TextureLoader("assets/texture/explosion1.png", renderer);
 		Explosion2 = TextureMana::TextureLoader("assets/texture/explosion2.png", renderer);
 		Explosion3 = TextureMana::TextureLoader("assets/texture/explosion3.png", renderer);
-		Background = TextureMana::TextureLoader("assets/texture/bg2.png", renderer);
+		Background = TextureMana::TextureLoader("assets/texture/bg4.png", renderer);
 
 		Music::GetInstance().SoundLoader("hit", "assets/music/hit.mp3");
 		Music::GetInstance().SoundLoader("explosion", "assets/music/explosion1.mp3");
@@ -247,8 +247,8 @@
 	void Game::update() 
 	{
 
-		bgY1 += bgSpeed;
-		bgY2 += bgSpeed;
+		bgY1 += player->GetVelo();
+		bgY2 += player->GetVelo();
 		if (bgY1 >= 720) {
 			bgY1 = bgY2 - 720;
 		}
