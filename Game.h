@@ -36,6 +36,7 @@ private :
 	int score = 0;
 	std::string score_string = "Score:0";
 	std::string wave_string = "Wave:1";
+	std::string life_string = "3x";
 	int wave = 1;
 	int health = 3;
 	int EneHealth = 3;

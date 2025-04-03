@@ -101,7 +101,7 @@
 		Music::GetInstance().MusicLoader("background1", "assets/music/background1.mp3");
 
 		Font::GetInstance().LoadFont("score", "assets/font/VT323-Regular.ttf", score_string.c_str(), 28, 255, 255, 255, 100, 680, renderer);
-		Font::GetInstance().LoadFont("life", "assets/font/VT323-Regular.ttf", "3x", 28, 255, 255, 255, 920, 680, renderer);
+		Font::GetInstance().LoadFont("life", "assets/font/VT323-Regular.ttf", life_string.c_str(), 28, 255, 255, 255, 920, 680, renderer);
 	}
 
 
@@ -203,7 +203,7 @@
 						EneColliDes.x += 6;
 						score_string += to_string(score);
 
-						if (rand() % 100 < 10)
+						if (rand() % 100 < 100)
 						{
 							int itemchoices = rand() % 4 + 1;
 							if (itemchoices == 1)
@@ -274,6 +274,9 @@
 		if ((player->PlayerIsDamaged() && health > 0) )
 		{
 			health--;
+			life_string.erase(0);
+			life_string = to_string(health) + "x";
+			Font::GetInstance().LoadFont("life", "assets/font/VT323-Regular.ttf", life_string.c_str(), 28, 255, 255, 255, 920, 680, renderer);
 			Music::GetInstance().PlaySound("explosion");
 			if (health == 0)
 			{
@@ -305,6 +308,9 @@
 				if ((*drop)->Boost() == 1 && health < 5)
 				{
 					health++;
+					life_string.erase(0);
+					life_string = to_string(health) + "x";
+					Font::GetInstance().LoadFont("life", "assets/font/VT323-Regular.ttf", life_string.c_str(), 28, 255, 255, 255, 920, 680, renderer);
 				}
 				if ((*drop)->Boost() == 2 && player->GetVelo() < 10)
 				{
