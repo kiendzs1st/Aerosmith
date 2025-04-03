@@ -5,23 +5,28 @@
 	#include "tilemap.h"
 	#include "Music.h"
 	#include "Font.h"
+	#include "Animation.h"
 
 	using namespace std;
 
 	SDL_Renderer* Game::renderer = nullptr;
-	SDL_Texture* playerTex;
+
 	SDL_Rect srcrect, desrect;
 	SDL_Rect MisColliDes;
 	SDL_Rect MisColliSrc = {0, 0, 35, 20};
 	SDL_Rect EneColliSrc, EneColliDes;
 	SDL_Rect PlayerColliDes, PlayerColliSrc;
 	SDL_Rect HeartRect = { 920, 665, 105 , 60 };
+
 	Missile* missle = nullptr;
 	Player* player = nullptr;
 	Map* map = nullptr;	
+
 	Animation ExploAni1 = { 35, 20 };
 	Animation ExploAni2 = { 64, 64 };
 	Animation ExploAni3 = { 64, 64 };
+	
+	SDL_Texture* playerTex;
 	SDL_Texture* Explosion1 = nullptr;
 	SDL_Texture* Explosion2 = nullptr;
 	SDL_Texture* Explosion3 = nullptr;
@@ -203,7 +208,7 @@
 						EneColliDes.x += 6;
 						score_string += to_string(score);
 
-						if (rand() % 100 < 100)
+						if (rand() % 100 < 5)
 						{
 							int itemchoices = rand() % 4 + 1;
 							if (itemchoices == 1)
@@ -278,10 +283,7 @@
 			life_string = to_string(health) + "x";
 			Font::GetInstance().LoadFont("life", "assets/font/VT323-Regular.ttf", life_string.c_str(), 28, 255, 255, 255, 920, 680, renderer);
 			Music::GetInstance().PlaySound("explosion");
-			if (health == 0)
-			{
-				isRunning = false;
-			}
+	
 			cout << health << endl;
 			PlayerColliDes = player->GetDesRect();
 			PlayerColliSrc = player->GetSrcRect();
