@@ -31,6 +31,7 @@ private :
 	std::vector<Drop*> drop_store;
 	int bgY1 = 0;
 	int bgY2 = -720;
+
 	const int bgHeight = 2160;
 	int score = 0;
 	int wave = 1;
