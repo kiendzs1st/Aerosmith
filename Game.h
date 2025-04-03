@@ -30,10 +30,12 @@ private :
 
 	std::vector<Drop*> drop_store;
 	int bgY1 = 0;
-	int bgY2 = -720;
+	int bgY2 = -720;	
 
 	const int bgHeight = 2160;
 	int score = 0;
+	std::string score_string = "Score:0";
+	std::string wave_string = "Wave:1";
 	int wave = 1;
 	int health = 3;
 	int EneHealth = 3;
@@ -43,4 +45,5 @@ private :
 	bool IsMisExplose;
 	bool IsEneExplose;
 	bool IsRespawning;
+	bool IsScoring;
 };

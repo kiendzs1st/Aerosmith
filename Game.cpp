@@ -4,6 +4,7 @@
 	#include "Missle.h"
 	#include "tilemap.h"
 	#include "Music.h"
+	#include "Font.h"
 
 	using namespace std;
 
@@ -14,6 +15,7 @@
 	SDL_Rect MisColliSrc = {0, 0, 35, 20};
 	SDL_Rect EneColliSrc, EneColliDes;
 	SDL_Rect PlayerColliDes, PlayerColliSrc;
+	SDL_Rect HeartRect = { 920, 665, 105 , 60 };
 	Missile* missle = nullptr;
 	Player* player = nullptr;
 	Map* map = nullptr;	
@@ -24,6 +26,7 @@
 	SDL_Texture* Explosion2 = nullptr;
 	SDL_Texture* Explosion3 = nullptr;
 	SDL_Texture* Background = nullptr;
+	SDL_Texture* Heart = nullptr;
 	
 	Uint32 MisAnimationStart = SDL_GetTicks();
 	Uint32 EneAnimationStart = SDL_GetTicks();
@@ -90,11 +93,15 @@
 		Explosion2 = TextureMana::TextureLoader("assets/texture/explosion2.png", renderer);
 		Explosion3 = TextureMana::TextureLoader("assets/texture/explosion3.png", renderer);
 		Background = TextureMana::TextureLoader("assets/texture/bg4.png", renderer);
+		Heart = TextureMana::TextureLoader("assets/texture/heart.png", renderer);
 
 		Music::GetInstance().SoundLoader("hit", "assets/music/hit.mp3");
 		Music::GetInstance().SoundLoader("explosion", "assets/music/explosion1.mp3");
 		Music::GetInstance().SoundLoader("ting", "assets/music/ting.mp3");
 		Music::GetInstance().MusicLoader("background1", "assets/music/background1.mp3");
+
+		Font::GetInstance().LoadFont("score", "assets/font/VT323-Regular.ttf", score_string.c_str(), 28, 255, 255, 255, 100, 680, renderer);
+		Font::GetInstance().LoadFont("life", "assets/font/VT323-Regular.ttf", "3x", 28, 255, 255, 255, 920, 680, renderer);
 	}
 
 
@@ -194,6 +201,7 @@
 						EneColliSrc = (*ene)->GetEsrc();
 						EneColliDes = (*ene)->GetErect();
 						EneColliDes.x += 6;
+						score_string += to_string(score);
 
 						if (rand() % 100 < 10)
 						{
@@ -217,6 +225,9 @@
 						}
 
 						score += (*ene)->GetEValue();
+						score_string.erase(6);
+						score_string += to_string(score);
+						Font::GetInstance().LoadFont("score", "assets/font/VT323-Regular.ttf", score_string.c_str(), 28, 255, 255, 255, 100, 680, renderer);
 
 						(*ene)->eneDestroy();
 						delete* ene;
@@ -243,10 +254,8 @@
 		}
 
 	}
-
 	void Game::update() 
 	{
-
 		bgY1 += player->GetVelo();
 		bgY2 += player->GetVelo();
 		if (bgY1 >= 720) {
@@ -370,6 +379,8 @@
 		if (IsRespawning && SDL_GetTicks() - RespawnTime > 2000)
 		{
 			wave++;
+			wave_string.erase(5);
+			wave_string += to_string(wave);
 			cout << "Wave : " << wave << endl;
 			if (wave % 2 == 0)
 			{
@@ -396,6 +407,8 @@
 
 			LoadingLayout = SDL_GetTicks();
 		}
+		int ypos = 680 - Font::GetInstance().GetH("score");
+		Font::GetInstance().LoadFont("wave", "assets/font/VT323-Regular.ttf", wave_string.c_str(), 28, 255, 255, 255, 100, ypos, renderer);
 
 		if (wave == 1)
 		{
@@ -425,6 +438,11 @@
 		map->MapRenderEnemies();
 		SDL_RenderSetViewport(renderer, NULL);
 
+		Font::GetInstance().Render("score");
+		Font::GetInstance().Render("wave");
+		Font::GetInstance().Render("life");
+
+		SDL_RenderCopy(renderer, Heart, NULL, &HeartRect);
 
 		for (auto drop = drop_store.begin(); drop != drop_store.end(); drop++)
 		{
