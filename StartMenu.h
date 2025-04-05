@@ -16,9 +16,12 @@ public:
 	void Update();
 	void Render();
 
+	bool Status(string id);
 private:
 
 	SDL_Renderer* renderer;
 	SDL_Texture* texture;
 	unordered_map<string, SDL_Rect> button_dest;
+	unordered_map<string, bool> status_store;
+
 };
