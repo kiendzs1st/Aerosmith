@@ -27,6 +27,8 @@ void Font::LoadFont(const char* id,const char* filename, const char* text, int F
 	w_store[id] = TextSur->w;
 	h_store[id] = TextSur->h;
 	rect_store[id] = FontRect;
+	text_store[id] = text;
+	color_store[id] = TextColor;
 	SDL_FreeSurface(TextSur);
 
 	renderer = ren;
@@ -37,7 +39,16 @@ void Font::Render(string id)
 	SDL_RenderCopy(renderer, map[id], nullptr, &rect_store[id]);
 }
 
+void Font::ChangeColor(string id, int r, int g, int b)
+{
+	SDL_Color tmp = { r, g, b };
+	color_store[id] = tmp;
+	TextSur = TTF_RenderText_Solid(font, text_store[id].c_str(), color_store[id]);
+	FontText = SDL_CreateTextureFromSurface(renderer, TextSur);
+	map[id] = FontText;
 
+	SDL_FreeSurface(TextSur);
+}
 
 int Font::GetW(string id)
 {

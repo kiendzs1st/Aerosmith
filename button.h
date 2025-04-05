@@ -13,14 +13,18 @@ public:
 	void Update();
 	void Event(SDL_Event& event);
 	void Render();
+	bool IsPressed();
+	bool IsHovered();
 
 	SDL_Rect GetRect();
 
 private:
 	SDL_Renderer* renderer;
-	SDL_Texture* texture;
+	SDL_Texture* normal;
+	SDL_Texture* hover;
+	SDL_Texture* pressed;
 	SDL_Rect desrect;
 
-	bool IsHovered;
-	bool IsPressed;
+	bool is_hovered;
+	bool is_pressed;
 };

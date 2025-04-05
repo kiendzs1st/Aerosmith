@@ -14,6 +14,7 @@ public:
 
 	void LoadFont(const char* id,const char* filename, const char* text, int FontSize, int r, int g, int b, int xpos, int ypos, SDL_Renderer* ren);
 	void Render(string id);
+	void ChangeColor(string id, int r, int g, int b);
 	int GetW(string id);
 	int GetH(string id);
 
@@ -23,6 +24,8 @@ private:
 	unordered_map<string, int> w_store;
 	unordered_map<string, int> h_store;
 	unordered_map<string, SDL_Rect> rect_store;
+	unordered_map<string, SDL_Color> color_store;
+	unordered_map<string, string> text_store;
 	SDL_Renderer* renderer = nullptr;
 	SDL_Surface* TextSur = nullptr;
 	SDL_Texture* FontText = nullptr;

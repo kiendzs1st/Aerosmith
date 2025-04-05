@@ -3,7 +3,9 @@
 Button::Button( int xpos, int ypos, SDL_Renderer* ren)
 {
 	renderer = ren;
-	texture = TextureMana::TextureLoader("assets/texture/normal_button.png", renderer);
+	normal = TextureMana::TextureLoader("assets/texture/normal_button.png", renderer);
+	hover = TextureMana::TextureLoader("assets/texture/hover_button.png", renderer);
+	pressed = TextureMana::TextureLoader("assets/texture/pressed_button_1.png", renderer);
 	desrect = { xpos, ypos, 256,  128 };
 }
 
@@ -18,55 +20,60 @@ void Button::Event(SDL_Event& event)
 	SDL_Point MousePoint = { mouseX, mouseY };
 	if (SDL_PointInRect(&MousePoint, &desrect))
 	{
-		IsHovered = true;
+		is_hovered = true;
 	}
 	else
 	{
-		IsHovered = false;
+		is_hovered = false;
 	}
 
 	if (event.type == SDL_MOUSEBUTTONDOWN && SDL_PointInRect(&MousePoint, &desrect))
 	{
 		if (event.button.button == SDL_BUTTON_LEFT)
 		{
-			IsPressed = true;
+			is_pressed = true;
 		}
 	}
 	if (event.type == SDL_MOUSEBUTTONUP && SDL_PointInRect(&MousePoint, &desrect))
 	{
 		if (event.button.button == SDL_BUTTON_LEFT)
 		{
-			IsPressed = false;
+			is_pressed = false;
 		}
 	}
 }
 
 void Button::Update()
-{
-	if (IsHovered)
-	{
-		SDL_DestroyTexture(texture);
-		texture = TextureMana::TextureLoader("assets/texture/hover_button.png", renderer);
-	}
-	else
-	{
-		texture = TextureMana::TextureLoader("assets/texture/normal_button.png", renderer);
-	}
-
-	if (IsPressed)
-	{
-		SDL_DestroyTexture(texture);
-		texture = TextureMana::TextureLoader("assets/texture/pressed_button.png", renderer);
-	}
-	
+{	
 }
 
 void Button::Render()
 {
-	SDL_RenderCopy(renderer, texture, nullptr, &desrect);
+	if (is_hovered)
+	{
+		SDL_RenderCopy(renderer, hover, nullptr, &desrect);
+		if (is_pressed)
+		{
+			SDL_RenderCopy(renderer, pressed, nullptr, &desrect);
+		}
+	}
+	else
+	{
+		SDL_RenderCopy(renderer, normal, nullptr, &desrect);
+	}
 }
 
 SDL_Rect Button::GetRect()
 {
 	return desrect;
+}
+
+bool Button::IsHovered()
+{
+	return is_hovered;
+}
+
+bool Button::IsPressed()
+{
+	return is_pressed;
 }

@@ -19,7 +19,10 @@ StartMenu::StartMenu(SDL_Renderer* ren)
 	button_dest["help"] = help->GetRect();
 	button_dest["quit"] = quit->GetRect();
 
-	Font::GetInstance().LoadFont("start", "assets/font/VT323-Regular.ttf", "start", 70, 255, 255, 255, 327 , 355, renderer);
+	Font::GetInstance().LoadFont("start", "assets/font/VT323-Regular.ttf", "Start", 64, 255, 255, 255, 335, 362, renderer);
+	Font::GetInstance().LoadFont("settings", "assets/font/VT323-Regular.ttf", "Settings", 64, 255, 255, 255, 575, 362, renderer);
+	Font::GetInstance().LoadFont("help", "assets/font/VT323-Regular.ttf", "Help", 64, 255, 255, 255, 350, 515, renderer);
+	Font::GetInstance().LoadFont("quit", "assets/font/VT323-Regular.ttf", "Quit", 64, 255, 255, 255, 627, 515, renderer);
 }
 
 StartMenu::~StartMenu()
@@ -37,10 +40,42 @@ void StartMenu::Event(SDL_Event& event)
 
 void StartMenu::Update()
 {
-	start->Update();
-	settings->Update();
-	help->Update();
-	quit->Update();
+	if (start->IsHovered())
+	{
+		Font::GetInstance().ChangeColor("start", 242, 232, 28);
+		if (start->IsPressed())
+		{
+			status_store["start"] = true;
+		}
+	}
+	else
+	{
+		Font::GetInstance().ChangeColor("start", 255, 255, 255);
+	}
+	if (settings->IsHovered())
+	{
+		Font::GetInstance().ChangeColor("settings", 242, 232, 28);
+	}
+	else
+	{
+		Font::GetInstance().ChangeColor("settings", 255, 255, 255);
+	}
+	if (help->IsHovered())
+	{
+		Font::GetInstance().ChangeColor("help", 242, 232, 28);
+	}
+	else
+	{
+		Font::GetInstance().ChangeColor("help", 255, 255, 255);
+	}
+	if (quit->IsHovered())
+	{
+		Font::GetInstance().ChangeColor("quit", 242, 232, 28);
+	}
+	else
+	{
+		Font::GetInstance().ChangeColor("quit", 255, 255, 255);
+	}
 }
 
 void StartMenu::Render()
@@ -50,5 +85,14 @@ void StartMenu::Render()
 	settings->Render();
 	help->Render();
 	quit->Render();
+
 	Font::GetInstance().Render("start");
+	Font::GetInstance().Render("settings");
+	Font::GetInstance().Render("help");
+	Font::GetInstance().Render("quit");
+}
+
+bool StartMenu::Status(string id)
+{
+	return status_store[id];
 }
