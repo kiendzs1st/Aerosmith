@@ -134,6 +134,7 @@
   <ItemGroup>
     <ClCompile Include="Aerosmith.cpp" />
     <ClCompile Include="animation.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Drop.cpp" />
     <ClCompile Include="Enemies.cpp" />
     <ClCompile Include="EnemiesBullet.cpp" />
@@ -147,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="button.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Drop.h" />
     <ClInclude Include="Enemies.h" />

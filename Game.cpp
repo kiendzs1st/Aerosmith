@@ -32,6 +32,7 @@
 	SDL_Texture* Explosion3 = nullptr;
 	SDL_Texture* Background = nullptr;
 	SDL_Texture* Heart = nullptr;
+	SDL_Texture* StartMenu = nullptr;
 	
 	Uint32 MisAnimationStart = SDL_GetTicks();
 	Uint32 EneAnimationStart = SDL_GetTicks();
@@ -99,6 +100,7 @@
 		Explosion3 = TextureMana::TextureLoader("assets/texture/explosion3.png", renderer);
 		Background = TextureMana::TextureLoader("assets/texture/bg4.png", renderer);
 		Heart = TextureMana::TextureLoader("assets/texture/heart.png", renderer);
+		StartMenu = TextureMana::TextureLoader("assets/texture/start_menu.png", renderer);
 
 		Music::GetInstance().SoundLoader("hit", "assets/music/hit.mp3");
 		Music::GetInstance().SoundLoader("explosion", "assets/music/explosion1.mp3");
@@ -437,11 +439,13 @@
 	void Game::render() 
 	{
 		SDL_RenderClear(renderer);
+		SDL_RenderCopy(renderer, StartMenu, NULL, NULL);
+		/* 
 		SDL_Rect bgRect1 = { 0, bgY1, 1080, 720 };
 		SDL_Rect bgRect2 = { 0, bgY2 , 1080, 720 };
 		SDL_RenderCopy(renderer, Background, NULL, &bgRect1);
 		SDL_RenderCopy(renderer, Background, NULL, &bgRect2);
-
+		*/
 		SDL_RenderSetViewport(renderer, &EnemiesView);
 		map->MapRenderEnemies();
 		SDL_RenderSetViewport(renderer, NULL);
