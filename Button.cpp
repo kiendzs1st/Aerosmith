@@ -1,41 +1,72 @@
 #include "button.h"
 
-Button::Button()
+Button::Button( int xpos, int ypos, SDL_Renderer* ren)
 {
+	renderer = ren;
+	texture = TextureMana::TextureLoader("assets/texture/normal_button.png", renderer);
+	desrect = { xpos, ypos, 256,  128 };
 }
 
 Button::~Button()
 {
 }
 
-Button& Button::GetInstance()
+void Button::Event(SDL_Event& event)
 {
-	static Button instance;
-	return instance;
-}
+	int mouseX, mouseY;
+	SDL_GetMouseState(&mouseX, &mouseY);
+	SDL_Point MousePoint = { mouseX, mouseY };
+	if (SDL_PointInRect(&MousePoint, &desrect))
+	{
+		IsHovered = true;
+	}
+	else
+	{
+		IsHovered = false;
+	}
 
-void Button::LoadButton(const char* filename, const char* id, int xpos, int ypos, SDL_Renderer* ren)
-{
-	renderer = ren;
-	texture = TextureMana::TextureLoader(filename, renderer);
-	button_store[id] = texture;
-	x_store[id] = xpos;
-	y_store[id] = ypos;
-	srcrect = { 0, 0, 256, 128 };
-	desrect = { x_store[id], y_store[id], srcrect.w, srcrect.h };
-}
-
-void Button::Event()
-{
-
+	if (event.type == SDL_MOUSEBUTTONDOWN && SDL_PointInRect(&MousePoint, &desrect))
+	{
+		if (event.button.button == SDL_BUTTON_LEFT)
+		{
+			IsPressed = true;
+		}
+	}
+	if (event.type == SDL_MOUSEBUTTONUP && SDL_PointInRect(&MousePoint, &desrect))
+	{
+		if (event.button.button == SDL_BUTTON_LEFT)
+		{
+			IsPressed = false;
+		}
+	}
 }
 
 void Button::Update()
 {
+	if (IsHovered)
+	{
+		SDL_DestroyTexture(texture);
+		texture = TextureMana::TextureLoader("assets/texture/hover_button.png", renderer);
+	}
+	else
+	{
+		texture = TextureMana::TextureLoader("assets/texture/normal_button.png", renderer);
+	}
 
+	if (IsPressed)
+	{
+		SDL_DestroyTexture(texture);
+		texture = TextureMana::TextureLoader("assets/texture/pressed_button.png", renderer);
+	}
+	
 }
 
 void Button::Render()
 {
+	SDL_RenderCopy(renderer, texture, nullptr, &desrect);
+}
 
+SDL_Rect Button::GetRect()
+{
+	return desrect;
 }

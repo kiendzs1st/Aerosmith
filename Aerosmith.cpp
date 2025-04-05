@@ -8,6 +8,14 @@ const int FPS = 60;
 const int FrameDelay = 1000 / 60;
 Game* game = nullptr;
 
+enum GameState
+{
+	State_Menu,
+	State_Playing,
+	State_End,
+	State_Quit,
+};
+
 int main(int argv, char* argc[])
 {
 	game = new Game();

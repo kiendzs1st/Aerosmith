@@ -7,24 +7,20 @@
 class Button
 {
 public:
-	static Button& GetInstance();
+	Button( int xpos, int ypos, SDL_Renderer* ren);
 	~Button();
 
-	void LoadButton(const char* filename, const char* id, int xpos, int ypos, SDL_Renderer* ren);
 	void Update();
-	void Event();
+	void Event(SDL_Event& event);
 	void Render();
 
+	SDL_Rect GetRect();
+
 private:
-	Button();
-
-	unordered_map<string, SDL_Texture*> button_store;
-	unordered_map<string, int> x_store;
-	unordered_map<string, int> y_store;
-
-
 	SDL_Renderer* renderer;
 	SDL_Texture* texture;
-	SDL_Rect srcrect, desrect;
+	SDL_Rect desrect;
 
+	bool IsHovered;
+	bool IsPressed;
 };

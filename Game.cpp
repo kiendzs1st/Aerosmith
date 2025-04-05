@@ -6,6 +6,7 @@
 	#include "Music.h"
 	#include "Font.h"
 	#include "Animation.h"
+	#include "StartMenu.h"
 
 	using namespace std;
 
@@ -21,6 +22,7 @@
 	Missile* missle = nullptr;
 	Player* player = nullptr;
 	Map* map = nullptr;	
+	StartMenu* start_menu = nullptr;
 
 	Animation ExploAni1 = { 35, 20 };
 	Animation ExploAni2 = { 64, 64 };
@@ -32,7 +34,6 @@
 	SDL_Texture* Explosion3 = nullptr;
 	SDL_Texture* Background = nullptr;
 	SDL_Texture* Heart = nullptr;
-	SDL_Texture* StartMenu = nullptr;
 	
 	Uint32 MisAnimationStart = SDL_GetTicks();
 	Uint32 EneAnimationStart = SDL_GetTicks();
@@ -93,6 +94,7 @@
 		player = new Player("assets/texture/jett.png", renderer);
 		missle = new Missile("assets/texture/missle.png", renderer, player);
 		map = new Map(renderer, EneHealth, BulletDelayFrame, BulletSpeed);
+		start_menu = new StartMenu(renderer);
 		map->LoadMap(player);
 
 		Explosion1 = TextureMana::TextureLoader("assets/texture/explosion1.png", renderer);
@@ -100,7 +102,6 @@
 		Explosion3 = TextureMana::TextureLoader("assets/texture/explosion3.png", renderer);
 		Background = TextureMana::TextureLoader("assets/texture/bg4.png", renderer);
 		Heart = TextureMana::TextureLoader("assets/texture/heart.png", renderer);
-		StartMenu = TextureMana::TextureLoader("assets/texture/start_menu.png", renderer);
 
 		Music::GetInstance().SoundLoader("hit", "assets/music/hit.mp3");
 		Music::GetInstance().SoundLoader("explosion", "assets/music/explosion1.mp3");
@@ -122,8 +123,8 @@
 				isRunning = false;
 				return;
 			}
-			player->PlayerEvent(event);
-		
+			//player->PlayerEvent(event);
+			start_menu->Event(event);
 		}
 	}
 
@@ -263,6 +264,8 @@
 	}
 	void Game::update() 
 	{
+		start_menu->Update();
+		/*
 		bgY1 += player->GetVelo();
 		bgY2 += player->GetVelo();
 		if (bgY1 >= 720) {
@@ -434,18 +437,18 @@
 				CheckCollision();
 			}
 		}
+		*/
 	}
 
 	void Game::render() 
 	{
 		SDL_RenderClear(renderer);
-		SDL_RenderCopy(renderer, StartMenu, NULL, NULL);
-		/* 
+		start_menu->Render();
+		/*
 		SDL_Rect bgRect1 = { 0, bgY1, 1080, 720 };
 		SDL_Rect bgRect2 = { 0, bgY2 , 1080, 720 };
 		SDL_RenderCopy(renderer, Background, NULL, &bgRect1);
 		SDL_RenderCopy(renderer, Background, NULL, &bgRect2);
-		*/
 		SDL_RenderSetViewport(renderer, &EnemiesView);
 		map->MapRenderEnemies();
 		SDL_RenderSetViewport(renderer, NULL);
@@ -478,9 +481,8 @@
 		}
 
 		player->PlayerRender();
-		
+		*/
 		SDL_RenderPresent(renderer);
-
 	}
 
 	void Game::clean() {
