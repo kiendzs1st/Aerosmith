@@ -47,4 +47,5 @@ private :
 	bool IsEneExplose;
 	bool IsRespawning;
 	bool IsScoring;
+	bool IsFading;
 };

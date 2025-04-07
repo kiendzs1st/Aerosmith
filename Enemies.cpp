@@ -53,10 +53,16 @@ void Enemies::eneDestroy()
 		SDL_DestroyTexture(etext);
 		etext = nullptr;
 	}
+
 }
 
 Enemies::~Enemies()
 {
+	for (auto b : BulletStore)
+	{
+		delete b;
+	}
+	BulletStore.clear();
 	delete bullet;
 	eneDestroy();
 }

@@ -24,4 +24,8 @@ private:
 	unordered_map<string, SDL_Rect> button_dest;
 	unordered_map<string, bool> status_store;
 
+	Button* start ;
+	Button* settings ;
+	Button* help ;
+	Button* quit ;
 };

@@ -268,11 +268,16 @@
 		}
 
 	}
-	void Game::update() 
+	void Game::update()
 	{
 		if (start_menu->Status("start") == false)
 		{
-		start_menu->Update();
+			start_menu->Update();
+			LoadingLayout = SDL_GetTicks();
+			if (start_menu->Status("quit") == true)
+			{
+				isRunning = false;
+			}
 		}
 		else
 		{
@@ -499,8 +504,8 @@
 		SDL_RenderPresent(renderer);
 	}
 
-	void Game::clean() {
-
+	void Game::clean() 
+	{
 		delete map;
 		delete player;
 
@@ -510,7 +515,6 @@
 		SDL_DestroyWindow(window);
 		SDL_DestroyRenderer(renderer);
 		SDL_Quit();
-
 	}
 
 

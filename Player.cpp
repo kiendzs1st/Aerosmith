@@ -29,8 +29,12 @@ Player::Player(const char* titlesheet, SDL_Renderer* ren)
 
 Player::~Player()
 {
-
+	for (auto& missile : MissileStore) {
+		delete missile;
+	}
+	MissileStore.clear(); 
 }
+
 
 void Player::PlayerEvent(SDL_Event& event)
 {
@@ -93,7 +97,7 @@ void Player::PlayerUpdate()
 			{
 				Music::GetInstance().PlaySound("shoot");
 				MissileStore.emplace_back(new Missile("assets/texture/missle.png", RenderPlayer, this));
-				FireCoolDown = 15 - fcd;
+				FireCoolDown = 5 - fcd;
 			}
 		}
 

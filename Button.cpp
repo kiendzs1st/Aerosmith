@@ -11,7 +11,11 @@ Button::Button( int xpos, int ypos, SDL_Renderer* ren)
 
 Button::~Button()
 {
+	SDL_DestroyTexture(normal);
+	SDL_DestroyTexture(hover);
+	SDL_DestroyTexture(pressed);
 }
+
 
 void Button::Event(SDL_Event& event)
 {
@@ -39,6 +43,7 @@ void Button::Event(SDL_Event& event)
 		if (event.button.button == SDL_BUTTON_LEFT)
 		{
 			is_pressed = false;
+			is_working = true;
 		}
 	}
 }
@@ -75,5 +80,5 @@ bool Button::IsHovered()
 
 bool Button::IsPressed()
 {
-	return is_pressed;
+	return is_working;
 }

@@ -43,7 +43,7 @@ private:
 	double Speedx, Speedy;
 	bool keys[322] = { false };
 	std::vector<Missile*> MissileStore;
-	int FireCoolDown = 15;
+	int FireCoolDown = 25;
 
 	SDL_Renderer* RenderPlayer;
 	SDL_Texture* PlayerTexture;

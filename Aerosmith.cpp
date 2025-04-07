@@ -18,6 +18,7 @@ enum GameState
 
 int main(int argv, char* argc[])
 {
+
 	game = new Game();
 
 	Uint32 FrameStart;
