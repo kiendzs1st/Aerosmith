@@ -6,29 +6,30 @@ Settings::Settings(SDL_Renderer* ren)
 	texture = TextureMana::TextureLoader("assets/texture/setting.png", renderer);
 	srcrect = { 0, 0, 680, 520 };
 	desrect = { 200, 100, 680, 520 };
-	xbutton = new XButton( 500, 120,renderer);
+	xbutton = new XButton( 750, 120,renderer);
 	Volume::GetInstance().LoadChanger("Music", 490, 300, renderer);
 	Volume::GetInstance().LoadChanger("Sound", 490, 400, renderer);
-
-	Font::GetInstance().LoadFont("Music", "assets/font/VT323-Regular.ttf", "Music Volume ", 32, 255, 255, 255, 300, 285, renderer);
-	Font::GetInstance().LoadFont("Sound", "assets/font/VT323-Regular.ttf", "Sound Volume", 32, 255, 255, 255, 300, 385, renderer);
 }
 
 Settings::~Settings()
 {
 	SDL_DestroyTexture(texture);
 	delete xbutton;
-	Font::GetInstance().Clean();
 }
 
 void Settings::Event(SDL_Event& event)
 {
 	Volume::GetInstance().Event("Music", event);
 	Volume::GetInstance().Event("Sound", event);
+	xbutton->Event(event);
 }
 
-void Settings::Update()
+MenuResult Settings::Update()
 {
+	if (xbutton->IsPressed())
+	{
+		return MenuResult::START;
+	}
 	Volume::GetInstance().Update("Music");
 	Volume::GetInstance().Update("Sound");
 	if (Volume::GetInstance().IsPressed("Music") || Volume::GetInstance().IsPressed("Sound"))
@@ -41,14 +42,14 @@ void Settings::Update()
 	{
 		is_change = false;
 	}
+	return MenuResult::NONE;
 }
 
 void Settings::Render()
 {
 	SDL_RenderCopy(renderer, texture, &srcrect, &desrect);
-	Font::GetInstance().Render("Music");
+	xbutton->Render();;
 	Volume::GetInstance().Render("Music");
-	Font::GetInstance().Render("Sound");
 	Volume::GetInstance().Render("Sound");
 }
 

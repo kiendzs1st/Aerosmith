@@ -5,14 +5,6 @@ Music::Music()
 
 Music::~Music()
 {
-	for (auto& m : music_store)
-	{
-		Mix_FreeMusic(m.second);
-	}
-	for (auto& s : sound_store)
-	{
-		Mix_FreeChunk(s.second);
-	}
 }
 
 Music& Music::GetInstance()
@@ -57,4 +49,24 @@ void Music::MusicVolume(float percent)
 void Music::SoundVolume(float percent)
 {
 	Mix_Volume(-1, (int)(percent * 128));
+}
+
+void Music::CleanAll()
+{
+	for (auto& m : music_store)
+	{
+		Mix_FreeMusic(m.second);
+	}
+	music_store.clear();
+	for (auto& s : sound_store)
+	{
+		Mix_FreeChunk(s.second);
+	}
+	sound_store.clear();
+}
+
+void Music::CleanMusic(const char* id)
+{
+	Mix_FreeMusic(music_store[id]);
+	music_store.erase(id);
 }

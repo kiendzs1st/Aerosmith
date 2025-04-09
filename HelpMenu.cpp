@@ -6,7 +6,7 @@ HelpMenu::HelpMenu(SDL_Renderer* ren)
 {
 	renderer = ren;
 	texture = TextureMana::TextureLoader("assets/texture/help_menu.png", renderer);
-	xbutton = new XButton(800, 65, renderer);
+	xbutton = new XButton(900, 65, renderer);
 	Srcrect = { 0, 0, 1000, 720 };
 	Desrect = { 0, 0, Srcrect.w + 80, Srcrect.h };
 }

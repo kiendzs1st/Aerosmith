@@ -61,6 +61,7 @@ private :
 	bool IsRespawning;
 	bool IsScoring;
 	bool IsStarting;
+	bool IsSettingOpened = false;
 
 	GameState current_state;
 };

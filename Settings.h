@@ -1,9 +1,11 @@
 #pragma once
 #include <SDL.h>
+#include "StartMenu.h"
 #include "TextureManagement.h"
 #include "XButton.h"
 #include "Volume.h"
 #include "Font.h"
+
 
 class Settings
 {
@@ -11,9 +13,9 @@ public:
 	Settings( SDL_Renderer* ren);
 	~Settings();
 
-	void Event(SDL_Event& event);
-	void Update();
-	void Render();
+	void Event(SDL_Event& event) ;
+	MenuResult Update() ;
+	void Render() ;
 
 	bool IsChange();
 	float MusicPercent();
@@ -27,4 +29,5 @@ protected:
 	bool is_change;
 	float music_percent;
 	float sound_percent;
+
 };

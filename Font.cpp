@@ -18,11 +18,6 @@ Font& Font::GetInstance()
 
 void Font::LoadFont(const char* id, const char* filename, const char* text, int FontSize, int r, int g, int b, int xpos, int ypos, SDL_Renderer* ren)
 {
-    if (font_store.count(id) && font_store[id]) {
-        TTF_CloseFont(font_store[id]);
-        font_store.erase(id);
-    }
-
     TTF_Font* font = TTF_OpenFont(filename, FontSize);
     if (!font) {
         SDL_Log("Failed to load font: %s", TTF_GetError());
@@ -95,7 +90,24 @@ int Font::GetH(string id)
 	return h_store[id];
 }
 
-void Font::Clean()
+void Font::Clean(string id)
+{
+    if (map.count(id)) {
+        SDL_DestroyTexture(map[id]);
+        map.erase(id);
+
+        w_store.erase(id);
+        h_store.erase(id);
+        rect_store.erase(id);
+        text_store.erase(id);
+        color_store.erase(id);
+
+        TTF_CloseFont(font_store[id]);
+        font_store.erase(id);
+    }
+}
+
+void Font::CleanAll()
 {
     for (auto& pair : map)
     {

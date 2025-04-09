@@ -42,6 +42,7 @@ SDL_Texture* Explosion3 = nullptr;
 SDL_Texture* Background = nullptr;
 SDL_Texture* Heart = nullptr;
 SDL_Texture* help_menu = nullptr;
+SDL_Texture* start = nullptr;
 
 Uint32 MisAnimationStart = SDL_GetTicks();
 Uint32 EneAnimationStart = SDL_GetTicks();
@@ -113,6 +114,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	Background = TextureMana::TextureLoader("assets/texture/bg4.png", renderer);
 	Heart = TextureMana::TextureLoader("assets/texture/heart.png", renderer);
 	help_menu = TextureMana::TextureLoader("assets/texture/help_menu.png", renderer);
+	start = TextureMana::TextureLoader("assets/texture/start_menu.png", renderer);
 
 	Music::GetInstance().SoundLoader("hit", "assets/music/hit.mp3");
 	Music::GetInstance().SoundLoader("explosion", "assets/music/explosion1.mp3");
@@ -139,13 +141,13 @@ void Game::handleEvents() {
 		{
 			start_menu->Event(event);
 		}
-		if (current_state == GameState::Help)
-		{
-			helpping_menu->Event(event);
-		}
 		if (current_state == GameState::Settings1)
 		{
 			setting_menu->Event(event);
+		}
+		if (current_state == GameState::Help)
+		{
+			helpping_menu->Event(event);
 		}
 		else
 		{
@@ -316,8 +318,10 @@ void Game::update()
 		}
 		if (result == MenuResult::SETTINGS)
 		{
-			current_state = GameState::Settings1;
 			setting_menu = new Settings(renderer);
+			current_state = GameState::Settings1;
+			delete start_menu;
+			start_menu = nullptr;
 		}
 		if (result == MenuResult::QUIT)
 		{
@@ -340,13 +344,21 @@ void Game::update()
 		setting_menu->Update();
 		if (setting_menu->IsChange())
 		{
-			cout << setting_menu->MusicPercent() << endl;
 			Music::GetInstance().MusicVolume(setting_menu->MusicPercent());
 			Music::GetInstance().SoundVolume(setting_menu->SoundPercent());
+		}
+
+		if (setting_menu->Update() == MenuResult::START)
+		{
+			start_menu = new StartMenu(renderer);
+			current_state = GameState::StartMenu;
+			delete setting_menu;
+			setting_menu = nullptr;
 		}
 	}
 	if (IsStarting)
 	{
+		Music::GetInstance().CleanMusic("startmenu");
 		bgY1 += player->GetVelo();
 		bgY2 += player->GetVelo();
 		if (bgY1 >= 720) {
@@ -523,18 +535,18 @@ void Game::render()
 	SDL_RenderClear(renderer);
 	if (current_state == GameState::StartMenu)
 	{
-		start_menu->Render();
+			start_menu->Render();
 	}
-	else if (current_state == GameState::Help)
+	if (current_state == GameState::Help)
 	{
 		helpping_menu->Render();
 	}
-	else if (current_state == GameState::Settings1)
+	if (current_state == GameState::Settings1)
 	{
-		start_menu->Render();
+		SDL_RenderCopy(renderer, start, NULL, NULL);
 		setting_menu->Render();
 	}
-	else if (current_state == GameState::Starting)
+	if (current_state == GameState::Starting)
 	{
 		SDL_Rect bgRect1 = { 0, bgY1, 1080, 720 };
 		SDL_Rect bgRect2 = { 0, bgY2 , 1080, 720 };
@@ -587,6 +599,7 @@ void Game::clean()
 	}
 	drop_store.clear();
 
+	Font::GetInstance().CleanAll();
 	Mix_Quit();
 	IMG_Quit();
 	TTF_Quit();

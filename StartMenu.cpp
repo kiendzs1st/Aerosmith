@@ -27,12 +27,10 @@ StartMenu::~StartMenu()
 	delete help;
 	delete quit;
 
-	Font::GetInstance().Clean();
-
-	for (auto& pair : button_dest)
-	{
-		
-	}
+	Font::GetInstance().Clean("start");
+	Font::GetInstance().Clean("help");
+	Font::GetInstance().Clean("settings");
+	Font::GetInstance().Clean("quit");
 
 	SDL_DestroyTexture(texture);
 }

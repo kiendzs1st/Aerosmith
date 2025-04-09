@@ -6,6 +6,7 @@ XButton::XButton(int x, int y, SDL_Renderer* ren) : Button(x, y, ren)
 	normal = TextureMana::TextureLoader("assets/texture/x_normal.png", renderer);
 	hover = TextureMana::TextureLoader("assets/texture/x_hover.png", renderer);
 	pressed = TextureMana::TextureLoader("assets/texture/x_pressed.png", renderer);
+	desrect = { x, y, 128, 64 };
 }
 
 XButton::~XButton()

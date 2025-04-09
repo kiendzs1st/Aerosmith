@@ -17,7 +17,8 @@ public:
 	void ChangeColor(string id, int r, int g, int b);
 	int GetW(string id);
 	int GetH(string id);
-	void Clean();
+	void Clean(string id);
+	void CleanAll();
 
 private:
 	Font();
