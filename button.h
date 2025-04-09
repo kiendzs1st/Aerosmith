@@ -1,7 +1,6 @@
 #pragma once
 #include <SDL.h>
 #include "TextureManagement.h"
-#include <unordered_map>
 #include <string>
 
 class Button
@@ -13,12 +12,12 @@ public:
 	void Update();
 	void Event(SDL_Event& event);
 	void Render();
-	bool IsPressed();
-	bool IsHovered();
+	bool& IsPressed();
+	bool& IsHovered();
 
 	SDL_Rect GetRect();
 
-private:
+protected:
 	SDL_Renderer* renderer;
 	SDL_Texture* normal;
 	SDL_Texture* hover;

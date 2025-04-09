@@ -20,8 +20,8 @@ public:
 	void PlayMusic(const string& id, int loops = -1);
 	void PlaySound(const string& id, int loops = 0);
 
-	void StopMusic();
-	void StopSound();
+	void MusicVolume(float percent);
+	void SoundVolume(float percent);
 
 
 private:

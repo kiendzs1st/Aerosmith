@@ -6,17 +6,27 @@
 #include "Font.h"
 #include <string>
 
+enum class MenuResult
+{
+	NONE,
+	STARTMENU,
+	START,
+	HELP,
+	QUIT,
+	SETTINGS
+};
+
 class StartMenu
 {
 public:
 	StartMenu(SDL_Renderer* ren);
 	~StartMenu();
 
-	void Event(SDL_Event& event);
-	void Update();
-	void Render();
+	virtual void Event(SDL_Event& event);
+	virtual MenuResult Update();
+	virtual void Render();
 
-	bool Status(string id);
+	virtual bool& Status(string id);
 private:
 
 	SDL_Renderer* renderer;

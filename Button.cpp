@@ -73,12 +73,12 @@ SDL_Rect Button::GetRect()
 	return desrect;
 }
 
-bool Button::IsHovered()
+bool& Button::IsHovered()
 {
 	return is_hovered;
 }
 
-bool Button::IsPressed()
+bool& Button::IsPressed()
 {
 	return is_working;
 }

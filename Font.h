@@ -17,9 +17,11 @@ public:
 	void ChangeColor(string id, int r, int g, int b);
 	int GetW(string id);
 	int GetH(string id);
+	void Clean();
 
 private:
 	Font();
+	unordered_map<string, TTF_Font*> font_store;
 	unordered_map<string, SDL_Texture*> map;
 	unordered_map<string, int> w_store;
 	unordered_map<string, int> h_store;
@@ -29,6 +31,5 @@ private:
 	SDL_Renderer* renderer = nullptr;
 	SDL_Surface* TextSur = nullptr;
 	SDL_Texture* FontText = nullptr;
-	TTF_Font* font = nullptr;
 	SDL_Rect FontRect;
 };

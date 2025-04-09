@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\Visual studio\SDL2_image-devel-2.8.5-VC\SDL2_image-2.8.5\include;D:\Visual studio\SDL2_mixer-2.8.0\include;D:\Visual studio\SDL2_ttf-2.24.0\include;D:\Visual studio\SDL2-2.30.12\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Visual studio\SDL2_image-devel-2.8.5-VC\SDL2_image-2.8.5\lib\x64;D:\Visual studio\SDL2_mixer-2.8.0\lib\x64;D:\Visual studio\SDL2_ttf-2.24.0\lib\x64;D:\Visual studio\SDL2-2.30.12\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files %28x86%29\Visual Leak Detector\include;D:\Visual studio\SDL2_image-devel-2.8.5-VC\SDL2_image-2.8.5\include;D:\Visual studio\SDL2_mixer-2.8.0\include;D:\Visual studio\SDL2_ttf-2.24.0\include;D:\Visual studio\SDL2-2.30.12\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Visual Leak Detector\lib\Win64;D:\Visual studio\SDL2_image-devel-2.8.5-VC\SDL2_image-2.8.5\lib\x64;D:\Visual studio\SDL2_mixer-2.8.0\lib\x64;D:\Visual studio\SDL2_ttf-2.24.0\lib\x64;D:\Visual studio\SDL2-2.30.12\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -112,7 +112,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2_mixer.lib;vld.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -140,12 +140,16 @@
     <ClCompile Include="EnemiesBullet.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="HelpMenu.cpp" />
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="Music.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Settings.cpp" />
     <ClCompile Include="StartMenu.cpp" />
     <ClCompile Include="TextureManagement.cpp" />
     <ClCompile Include="tilemap.cpp" />
+    <ClCompile Include="Volume.cpp" />
+    <ClCompile Include="XButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -155,12 +159,16 @@
     <ClInclude Include="EnemiesBullet.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="HelpMenu.h" />
     <ClInclude Include="Missle.h" />
     <ClInclude Include="Music.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Settings.h" />
     <ClInclude Include="StartMenu.h" />
     <ClInclude Include="TextureManagement.h" />
     <ClInclude Include="Tilemap.h" />
+    <ClInclude Include="Volume.h" />
+    <ClInclude Include="XButton.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="C:\Users\Dell\OneDrive\Pictures\game\plane.png" />

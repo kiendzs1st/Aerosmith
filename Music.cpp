@@ -49,12 +49,12 @@ void Music::PlaySound(const string& id, int loops)
 	Mix_PlayChannel(-1, sound_store[id], loops);
 }
 
-void Music::StopMusic()
+void Music::MusicVolume(float percent)
 {
-	Mix_HaltMusic();
+	Mix_VolumeMusic((int) (percent * 128));
 }
 
-void Music::StopSound()
+void Music::SoundVolume(float percent)
 {
-	Mix_HaltChannel(-1);
+	Mix_Volume(-1, (int)(percent * 128));
 }

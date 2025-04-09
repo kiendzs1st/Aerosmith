@@ -9,8 +9,21 @@
 
 class Drop;
 
+enum class GameState
+{
+	StartMenu,
+	Help,
+	Starting,
+	Settings1,
+	Settings2,
+	GameOver,
+	Quit
+};
+
 class Game {
 public:
+
+
 	Game();
 	~Game();
 	void init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
@@ -47,5 +60,7 @@ private :
 	bool IsEneExplose;
 	bool IsRespawning;
 	bool IsScoring;
-	bool IsFading;
+	bool IsStarting;
+
+	GameState current_state;
 };
