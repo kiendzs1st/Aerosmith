@@ -58,6 +58,4 @@ private:
 	SDL_Renderer* eren;
 	SDL_Texture* etext;
 	SDL_Rect esrc, edes;
-	
-
 };

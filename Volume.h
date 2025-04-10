@@ -17,6 +17,7 @@ public:
 	void Render(const char* id);
 
 	bool IsPressed(string id);
+	int GetX(string id);
 
 private:
 	Volume();

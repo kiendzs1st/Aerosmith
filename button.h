@@ -12,7 +12,7 @@ public:
 	void Update();
 	void Event(SDL_Event& event);
 	void Render();
-	bool& IsPressed();
+	bool IsPressed();
 	bool& IsHovered();
 
 	SDL_Rect GetRect();

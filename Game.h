@@ -6,6 +6,7 @@
 #include <SDL_mixer.h>
 #include "Drop.h"
 #include <vector>
+#include <string>
 
 class Drop;
 
@@ -15,7 +16,7 @@ enum class GameState
 	Help,
 	Starting,
 	Settings1,
-	Settings2,
+	GameMenu,
 	GameOver,
 	Quit
 };
@@ -50,18 +51,23 @@ private :
 	std::string score_string = "Score:0";
 	std::string wave_string = "Wave:1";
 	std::string life_string = "3x";
-	int wave = 1;
+	int wave = 0;
 	int health = 3;
 	int EneHealth = 3;
 	int BulletDelayFrame = 0;
 	int BulletSpeed = 4;
+	int MusicX = 726 ;
+	int SoundX = 726 ;
 	bool isRunning;
 	bool IsMisExplose;
 	bool IsEneExplose;
 	bool IsRespawning;
 	bool IsScoring;
-	bool IsStarting;
+	bool IsStarting = false;
 	bool IsSettingOpened = false;
+	bool TurnOn = false;
+	int count = 0;
+	std::string mname = "assets/music/background1.mp3";
 
 	GameState current_state;
 };

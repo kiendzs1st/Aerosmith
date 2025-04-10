@@ -26,8 +26,9 @@
  		x_store[id] = xpos;
 		y_store[id] = ypos;
 		srcrect = { 0, 0, 34, 32 };
-		des_store[id] = {x_store[id] + 256  - 20, y_store[id] - 13,srcrect.w, srcrect.h};
-		bar_store[id] = { x_store[id], y_store[id], 256, 8 };
+		des_store[id] = {x_store[id], y_store[id] - 13,srcrect.w, srcrect.h};
+		bar_store["Music"] = {490, 300, 256, 8};
+		bar_store["Sound"] = { 490, 400, 256, 8 };
 	}
 
 	void Volume::Event(const char* id, SDL_Event& event)
@@ -105,4 +106,9 @@
 	bool Volume::IsPressed(string id)
 	{
 		return is_pressed[id];
+	}
+
+	int Volume::GetX(string id)
+	{
+		return des_store[id].x;
 	}

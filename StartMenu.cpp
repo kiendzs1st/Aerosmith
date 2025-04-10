@@ -1,4 +1,5 @@
-#include "StartMenu.h"
+﻿#include "StartMenu.h"
+#include <iostream>
 
 StartMenu::StartMenu(SDL_Renderer* ren)
 {
@@ -18,6 +19,7 @@ StartMenu::StartMenu(SDL_Renderer* ren)
 	Font::GetInstance().LoadFont("settings", "assets/font/VT323-Regular.ttf", "Settings", 64, 255, 255, 255, 575, 362, renderer);
 	Font::GetInstance().LoadFont("help", "assets/font/VT323-Regular.ttf", "Help", 64, 255, 255, 255, 350, 515, renderer);
 	Font::GetInstance().LoadFont("quit", "assets/font/VT323-Regular.ttf", "Quit", 64, 255, 255, 255, 627, 515, renderer);
+
 }
 
 StartMenu::~StartMenu()
@@ -32,8 +34,15 @@ StartMenu::~StartMenu()
 	Font::GetInstance().Clean("settings");
 	Font::GetInstance().Clean("quit");
 
+
+	std::unordered_map<std::string, SDL_Rect>().swap(button_dest);
+
+	std::unordered_map<std::string, bool>().swap(status_store);
+
 	SDL_DestroyTexture(texture);
+
 }
+
 
 
 void StartMenu::Event(SDL_Event& event)
@@ -114,5 +123,5 @@ void StartMenu::Render()
 
 bool& StartMenu::Status(string id)
 {
-	return status_store[id];
+	return status_store.at(id);
 }

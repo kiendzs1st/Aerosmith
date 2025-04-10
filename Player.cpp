@@ -2,7 +2,6 @@
 #include "TextureManagement.h"
 
 
-
 using namespace std;
 
 Animation PlayerAni1 = { 64, 64 };
@@ -33,6 +32,8 @@ Player::~Player()
 		delete missile;
 	}
 	MissileStore.clear(); 
+	SDL_DestroyTexture(PlayerTexture);
+	Music::GetInstance().CleanSound("shoot");
 }
 
 

@@ -24,6 +24,7 @@ public:
 	void SoundVolume(float percent);
 
 	void CleanMusic(const char* id);
+	void CleanSound(const char* id);
 	void CleanAll();
 
 

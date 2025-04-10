@@ -9,6 +9,7 @@
 #include "StartMenu.h"
 #include "HelpMenu.h"
 #include "Settings.h"
+#include "GameMenu.h"
 #include <vld.h>
 
 using namespace std;
@@ -29,6 +30,7 @@ Map* map = nullptr;
 StartMenu* start_menu = nullptr;
 HelpMenu* helpping_menu = nullptr;
 Settings* setting_menu = nullptr;
+GameMenu* game_menu = nullptr;
 
 Animation ExploAni1 = { 35, 20 };
 Animation ExploAni2 = { 64, 64 };
@@ -41,8 +43,7 @@ SDL_Texture* Explosion2 = nullptr;
 SDL_Texture* Explosion3 = nullptr;
 SDL_Texture* Background = nullptr;
 SDL_Texture* Heart = nullptr;
-SDL_Texture* help_menu = nullptr;
-SDL_Texture* start = nullptr;
+SDL_Texture* starttexture = nullptr;
 
 Uint32 MisAnimationStart = SDL_GetTicks();
 Uint32 EneAnimationStart = SDL_GetTicks();
@@ -113,13 +114,12 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	Explosion3 = TextureMana::TextureLoader("assets/texture/explosion3.png", renderer);
 	Background = TextureMana::TextureLoader("assets/texture/bg4.png", renderer);
 	Heart = TextureMana::TextureLoader("assets/texture/heart.png", renderer);
-	help_menu = TextureMana::TextureLoader("assets/texture/help_menu.png", renderer);
-	start = TextureMana::TextureLoader("assets/texture/start_menu.png", renderer);
+	starttexture = TextureMana::TextureLoader("assets/texture/start_menu.png", renderer);
 
 	Music::GetInstance().SoundLoader("hit", "assets/music/hit.mp3");
 	Music::GetInstance().SoundLoader("explosion", "assets/music/explosion1.mp3");
 	Music::GetInstance().SoundLoader("ting", "assets/music/ting.mp3");
-	Music::GetInstance().MusicLoader("background1", "assets/music/background1.mp3");
+	Music::GetInstance().MusicLoader("background", mname.c_str());
 	Music::GetInstance().MusicLoader("startmenu", "assets/music/startmenu.mp3");
 
 	Font::GetInstance().LoadFont("score", "assets/font/VT323-Regular.ttf", score_string.c_str(), 28, 255, 255, 255, 100, 680, renderer);
@@ -149,7 +149,27 @@ void Game::handleEvents() {
 		{
 			helpping_menu->Event(event);
 		}
-		else
+		if (current_state == GameState::Starting && event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
+		{
+			current_state = GameState::GameMenu;
+		}
+		else if (current_state == GameState::GameMenu)
+		{
+			if (game_menu != nullptr)
+			{
+				game_menu->Event(event);
+			}
+			if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
+			{
+				if (game_menu)
+				{
+					delete game_menu;
+					game_menu = nullptr;
+				}
+				current_state = GameState::Starting;
+			}
+		}
+		if (IsStarting)
 		{
 			player->PlayerEvent(event);
 		}
@@ -192,8 +212,6 @@ bool Game::Collision(SDL_Rect a, SDL_Rect b)
 
 	return true;
 }
-
-
 
 void Game::CheckCollision()
 {
@@ -288,7 +306,6 @@ void Game::CheckCollision()
 			mis++;
 		}
 	}
-
 }
 void Game::update()
 {
@@ -318,8 +335,9 @@ void Game::update()
 		}
 		if (result == MenuResult::SETTINGS)
 		{
-			setting_menu = new Settings(renderer);
 			current_state = GameState::Settings1;
+			setting_menu = new Settings(MusicX, SoundX,renderer);
+			TurnOn = true;
 			delete start_menu;
 			start_menu = nullptr;
 		}
@@ -342,6 +360,14 @@ void Game::update()
 	if (current_state == GameState::Settings1)
 	{
 		setting_menu->Update();
+		MusicX = setting_menu->MusicDes();
+		SoundX = setting_menu->SoundDes();
+		if (setting_menu->MusicName() != "")
+		{
+			mname = setting_menu->MusicName();
+			Music::GetInstance().CleanMusic("background");
+			Music::GetInstance().MusicLoader("background", mname.c_str());
+		}
 		if (setting_menu->IsChange())
 		{
 			Music::GetInstance().MusicVolume(setting_menu->MusicPercent());
@@ -351,180 +377,226 @@ void Game::update()
 		if (setting_menu->Update() == MenuResult::START)
 		{
 			start_menu = new StartMenu(renderer);
-			current_state = GameState::StartMenu;
+			if (IsStarting)
+			{
+				current_state = GameState::GameMenu;
+			}
+			else
+			{
+				current_state = GameState::StartMenu;
+			}
+			if (IsStarting && game_menu == nullptr)
+			{
+				game_menu = new GameMenu(renderer);
+			}
 			delete setting_menu;
 			setting_menu = nullptr;
 		}
 	}
+	if (current_state == GameState::GameMenu && game_menu == nullptr)
+
+	{
+		game_menu = new GameMenu(renderer);
+	}
 	if (IsStarting)
 	{
-		Music::GetInstance().CleanMusic("startmenu");
-		bgY1 += player->GetVelo();
-		bgY2 += player->GetVelo();
-		if (bgY1 >= 720) {
-			bgY1 = bgY2 - 720;
-		}
-		if (bgY2 >= 720) {
-			bgY2 = bgY1 - 720;
+		if (current_state == GameState::GameMenu)
+		{
+			MenuResult result = game_menu->Update();
+			if (result == MenuResult::START)
+			{
+				current_state = GameState::Starting;
+				delete game_menu;
+				game_menu = nullptr;
+			}
+			if (result == MenuResult::SETTINGS)
+			{
+				current_state = GameState::Settings1;
+				setting_menu = new Settings(MusicX, SoundX, renderer);
+				delete game_menu;
+				game_menu = nullptr;
+			}
 		}
 
-		if (Mix_PlayingMusic() == 0)
+		if (start_menu && current_state == GameState::Starting)
 		{
-			Music::GetInstance().PlayMusic("background1");
+			delete start_menu;
+			start_menu = nullptr;
 		}
-		desrect.h = desrect.w = 32;
-		player->PlayerUpdate();
-		if ((player->PlayerIsDamaged() && health > 0))
+		if (current_state == GameState::Settings1)
 		{
-			health--;
-			life_string.erase(0);
-			life_string = to_string(health) + "x";
+			setting_menu->Update();
+		}
+		if (current_state == GameState::Starting)
+		{
+			Music::GetInstance().CleanMusic("startmenu");
+			bgY1 += player->GetVelo();
+			bgY2 += player->GetVelo();
+			if (bgY1 >= 720) {
+				bgY1 = bgY2 - 720;
+			}
+			if (bgY2 >= 720) {
+				bgY2 = bgY1 - 720;
+			}
+
+			if (Mix_PlayingMusic() == 0)
+			{
+				Music::GetInstance().PlayMusic("background");
+			}
+			desrect.h = desrect.w = 32;
+			player->PlayerUpdate();
+			if ((player->PlayerIsDamaged() && health > 0))
+			{
+				health--;
+				life_string.erase(0);
+				life_string = to_string(health) + "x";
+				Font::GetInstance().LoadFont("life", "assets/font/VT323-Regular.ttf", life_string.c_str(), 28, 255, 255, 255, 920, 680, renderer);
+				Music::GetInstance().PlaySound("explosion");
+
+				cout << health << endl;
+				PlayerColliDes = player->GetDesRect();
+				PlayerColliSrc = player->GetSrcRect();
+
+				if (!player->IsAniWork())
+				{
+					PlayerExploStart = SDL_GetTicks();
+					player->IsAniWork() = true;
+				}
+
+				delete player;
+				player = new Player("assets/texture/jett.png", renderer);
+			}
+			map->MapUpdateEnemies();
+			for (auto drop = drop_store.begin(); drop != drop_store.end(); )
+			{
+				if ((*drop)->CheckCollison(player->getPlayerRect(), (*drop)->DropHitBox()))
+				{
+
+					Music::GetInstance().PlaySound("ting");
+
+					if ((*drop)->Boost() == 1 && health < 5)
+					{
+						health++;
+						life_string.erase(0);
+						life_string = to_string(health) + "x";
+					}
+					if ((*drop)->Boost() == 2 && player->GetVelo() < 10)
+					{
+						player->GetVelo()++;
+					}
+					if ((*drop)->Boost() == 3 && player->GetDame() < EneHealth)
+					{
+						player->GetDame()++;
+					}
+					if ((*drop)->Boost() == 4 && player->GetFCD() < 10)
+					{
+						player->GetFCD()++;
+					}
+
+					delete* drop;
+					drop = drop_store.erase(drop);
+				}
+				else if ((*drop)->GetY() > 720)
+				{
+					delete* drop;
+					drop = drop_store.erase(drop);
+				}
+				else
+				{
+					(*drop)->Update();
+					drop++;
+				}
+			}
+			if (IsMisExplose)
+			{
+				if (SDL_GetTicks() - MisAnimationStart < AnimationDelay)
+				{
+					ExploAni1.Define(4);
+				}
+				else
+				{
+					IsMisExplose = false;
+				}
+			}
+
+			if (IsEneExplose)
+			{
+				if (SDL_GetTicks() - EneAnimationStart < AnimationDelay)
+				{
+					ExploAni2.Define(4);
+				}
+				else
+				{
+					IsEneExplose = false;
+				}
+			}
+
+			if (player->IsAniWork())
+			{
+				if (SDL_GetTicks() - PlayerExploStart < 800)
+				{
+					ExploAni3.Define(4);
+				}
+				else
+				{
+					player->IsAniWork() = false;
+				}
+			}
+
+
+			if (map->GetCount() == 0 && !IsRespawning)
+			{
+				IsRespawning = true;
+				RespawnTime = SDL_GetTicks();
+			}
+
+			if (IsRespawning && SDL_GetTicks() - RespawnTime > 2000)
+			{
+				wave++;
+				wave_string.erase(5);
+				wave_string += to_string(wave);
+				cout << "Wave : " << wave << endl;
+				if (wave % 2 == 0)
+				{
+					if (EneHealth < 10)
+					{
+						EneHealth++;
+						cout << "Enemies' health: " << EneHealth << endl;
+					}
+					if (BulletDelayFrame <= 2000 && 3000 - BulletDelayFrame > 1000)
+					{
+						BulletDelayFrame += 500;
+						cout << "BulletCoolDown: " << 3000 - BulletDelayFrame << endl;
+					}
+					if (BulletSpeed < 10)
+					{
+						BulletSpeed += 2;
+						cout << "Bullet Speed: " << BulletSpeed << endl;
+					}
+				}
+				delete map;
+				map = new Map(renderer, EneHealth, BulletDelayFrame, BulletSpeed);
+				map->LoadMap(player);
+				IsRespawning = false;
+				LoadingLayout = SDL_GetTicks();
+			}
+			int ypos = 680 - Font::GetInstance().GetH("score");
+			Font::GetInstance().LoadFont("wave", "assets/font/VT323-Regular.ttf", wave_string.c_str(), 28, 255, 255, 255, 100, ypos, renderer);
 			Font::GetInstance().LoadFont("life", "assets/font/VT323-Regular.ttf", life_string.c_str(), 28, 255, 255, 255, 920, 680, renderer);
-			Music::GetInstance().PlaySound("explosion");
-
-			cout << health << endl;
-			PlayerColliDes = player->GetDesRect();
-			PlayerColliSrc = player->GetSrcRect();
-
-			if (!player->IsAniWork())
+			Font::GetInstance().LoadFont("score", "assets/font/VT323-Regular.ttf", score_string.c_str(), 28, 255, 255, 255, 100, 680, renderer);
+			if (wave == 1)
 			{
-				PlayerExploStart = SDL_GetTicks();
-				player->IsAniWork() = true;
-			}
-
-			delete player;
-			player = new Player("assets/texture/jett.png", renderer);
-		}
-		map->MapUpdateEnemies();
-		for (auto drop = drop_store.begin(); drop != drop_store.end(); )
-		{
-			if ((*drop)->CheckCollison(player->getPlayerRect(), (*drop)->DropHitBox()))
-			{
-
-				Music::GetInstance().PlaySound("ting");
-
-				if ((*drop)->Boost() == 1 && health < 5)
+				if (SDL_GetTicks() - LoadingLayout > 5000)
 				{
-					health++;
-					life_string.erase(0);
-					life_string = to_string(health) + "x";
+					CheckCollision();
 				}
-				if ((*drop)->Boost() == 2 && player->GetVelo() < 10)
-				{
-					player->GetVelo()++;
-				}
-				if ((*drop)->Boost() == 3 && player->GetDame() < EneHealth)
-				{
-					player->GetDame()++;
-				}
-				if ((*drop)->Boost() == 4 && player->GetFCD() < 10)
-				{
-					player->GetFCD()++;
-				}
-
-				delete* drop;
-				drop = drop_store.erase(drop);
-			}
-			else if ((*drop)->GetY() > 720)
-			{
-				delete* drop;
-				drop = drop_store.erase(drop);
 			}
 			else
 			{
-				(*drop)->Update();
-				drop++;
-			}
-		}
-		if (IsMisExplose)
-		{
-			if (SDL_GetTicks() - MisAnimationStart < AnimationDelay)
-			{
-				ExploAni1.Define(4);
-			}
-			else
-			{
-				IsMisExplose = false;
-			}
-		}
-
-		if (IsEneExplose)
-		{
-			if (SDL_GetTicks() - EneAnimationStart < AnimationDelay)
-			{
-				ExploAni2.Define(4);
-			}
-			else
-			{
-				IsEneExplose = false;
-			}
-		}
-
-		if (player->IsAniWork())
-		{
-			if (SDL_GetTicks() - PlayerExploStart < 800)
-			{
-				ExploAni3.Define(4);
-			}
-			else
-			{
-				player->IsAniWork() = false;
-			}
-		}
-
-
-		if (map->GetCount() == 0 && !IsRespawning)
-		{
-			IsRespawning = true;
-			RespawnTime = SDL_GetTicks();
-		}
-
-		if (IsRespawning && SDL_GetTicks() - RespawnTime > 2000)
-		{
-			wave++;
-			wave_string.erase(5);
-			wave_string += to_string(wave);
-			cout << "Wave : " << wave << endl;
-			if (wave % 2 == 0)
-			{
-				if (EneHealth < 10)
+				if (SDL_GetTicks() - LoadingLayout > 3000)
 				{
-					EneHealth++;
-					cout << "Enemies' health: " << EneHealth << endl;
+					CheckCollision();
 				}
-				if (BulletDelayFrame <= 2000 && 3000 - BulletDelayFrame > 1000)
-				{
-					BulletDelayFrame += 500;
-					cout << "BulletCoolDown: " << 3000 - BulletDelayFrame << endl;
-				}
-				if (BulletSpeed < 10)
-				{
-					BulletSpeed += 2;
-					cout << "Bullet Speed: " << BulletSpeed << endl;
-				}
-			}
-			delete map;
-			map = new Map(renderer, EneHealth, BulletDelayFrame, BulletSpeed);
-			map->LoadMap(player);
-			IsRespawning = false;
-			LoadingLayout = SDL_GetTicks();
-		}
-		int ypos = 680 - Font::GetInstance().GetH("score");
-		Font::GetInstance().LoadFont("wave", "assets/font/VT323-Regular.ttf", wave_string.c_str(), 28, 255, 255, 255, 100, ypos, renderer);
-		Font::GetInstance().LoadFont("life", "assets/font/VT323-Regular.ttf", life_string.c_str(), 28, 255, 255, 255, 920, 680, renderer);
-		Font::GetInstance().LoadFont("score", "assets/font/VT323-Regular.ttf", score_string.c_str(), 28, 255, 255, 255, 100, 680, renderer);
-		if (wave == 1)
-		{
-			if (SDL_GetTicks() - LoadingLayout > 5000)
-			{
-				CheckCollision();
-			}
-		}
-		else
-		{
-			if (SDL_GetTicks() - LoadingLayout > 3000)
-			{
-				CheckCollision();
 			}
 		}
 	}
@@ -543,10 +615,10 @@ void Game::render()
 	}
 	if (current_state == GameState::Settings1)
 	{
-		SDL_RenderCopy(renderer, start, NULL, NULL);
+		SDL_RenderCopy(renderer, starttexture, NULL, NULL);
 		setting_menu->Render();
 	}
-	if (current_state == GameState::Starting)
+	if (IsStarting)
 	{
 		SDL_Rect bgRect1 = { 0, bgY1, 1080, 720 };
 		SDL_Rect bgRect2 = { 0, bgY2 , 1080, 720 };
@@ -561,11 +633,11 @@ void Game::render()
 		Font::GetInstance().Render("life");
 
 		SDL_RenderCopy(renderer, Heart, NULL, &HeartRect);
-
 		for (auto drop = drop_store.begin(); drop != drop_store.end(); drop++)
 		{
 			(*drop)->Render();
 		}
+
 
 		if (IsMisExplose)
 		{
@@ -584,6 +656,14 @@ void Game::render()
 		}
 
 		player->PlayerRender();
+		if (current_state == GameState::GameMenu && game_menu != nullptr)
+		{
+			game_menu->Render();
+		}
+		if (current_state == GameState::Settings1)
+		{
+			setting_menu->Render();
+		}
 	}
 	SDL_RenderPresent(renderer);
 }
@@ -592,12 +672,46 @@ void Game::clean()
 {
 	delete map;
 	delete player;
-
-	for (auto& d : drop_store)
+	if (start_menu)
 	{
-		delete d;
+		delete start_menu;
 	}
-	drop_store.clear();
+	if (helpping_menu)
+	{
+		delete helpping_menu;
+	}
+	if (setting_menu)
+	{
+		delete setting_menu;
+	}
+	if (game_menu)
+	{
+		delete game_menu;
+	}
+	SDL_DestroyTexture(playerTex);
+	SDL_DestroyTexture(Explosion1);
+	SDL_DestroyTexture(Explosion2);
+	SDL_DestroyTexture(Explosion3);
+	SDL_DestroyTexture(Background);
+	SDL_DestroyTexture(Heart);
+	SDL_DestroyTexture(starttexture);
+
+	Music::GetInstance().CleanAll();
+	Font::GetInstance().CleanAll();
+
+	if (drop_store.size() != 0)
+	{
+		for (auto& d : drop_store)
+		{
+			delete d;
+		}
+		drop_store.clear();
+	}
+
+	mname.clear();
+	score_string.clear();
+	life_string.clear();
+	wave_string.clear();
 
 	Font::GetInstance().CleanAll();
 	Mix_Quit();

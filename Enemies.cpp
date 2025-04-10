@@ -65,6 +65,7 @@ Enemies::~Enemies()
 	BulletStore.clear();
 	delete bullet;
 	eneDestroy();
+	Music::GetInstance().CleanSound("laser");
 }
 
 

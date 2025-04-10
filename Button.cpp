@@ -31,20 +31,16 @@ void Button::Event(SDL_Event& event)
 		is_hovered = false;
 	}
 
-	if (event.type == SDL_MOUSEBUTTONDOWN && SDL_PointInRect(&MousePoint, &desrect))
+	if (is_hovered && SDL_PointInRect(&MousePoint, &desrect))
 	{
-		if (event.button.button == SDL_BUTTON_LEFT)
+		if (event.type == SDL_MOUSEBUTTONDOWN)
 		{
 			is_pressed = true;
 		}
 	}
-	if (event.type == SDL_MOUSEBUTTONUP && SDL_PointInRect(&MousePoint, &desrect))
+	if (event.type == SDL_MOUSEBUTTONUP)
 	{
-		if (event.button.button == SDL_BUTTON_LEFT)
-		{
-			is_pressed = false;
-			is_working = true;
-		}
+		is_pressed = false;
 	}
 }
 
@@ -78,7 +74,7 @@ bool& Button::IsHovered()
 	return is_hovered;
 }
 
-bool& Button::IsPressed()
+bool Button::IsPressed()
 {
-	return is_working;
+	return is_pressed;
 }

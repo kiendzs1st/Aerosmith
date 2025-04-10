@@ -70,3 +70,10 @@ void Music::CleanMusic(const char* id)
 	Mix_FreeMusic(music_store[id]);
 	music_store.erase(id);
 }
+
+
+void Music::CleanSound(const char* id)
+{
+	Mix_FreeChunk(sound_store[id]);
+	sound_store.erase(id);
+}
