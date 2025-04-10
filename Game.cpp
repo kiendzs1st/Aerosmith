@@ -10,6 +10,7 @@
 #include "HelpMenu.h"
 #include "Settings.h"
 #include "GameMenu.h"
+#include <fstream>
 #include <vld.h>
 
 using namespace std;
@@ -31,6 +32,7 @@ StartMenu* start_menu = nullptr;
 HelpMenu* helpping_menu = nullptr;
 Settings* setting_menu = nullptr;
 GameMenu* game_menu = nullptr;
+string highscore_string = "";
 
 Animation ExploAni1 = { 35, 20 };
 Animation ExploAni2 = { 64, 64 };
@@ -44,6 +46,7 @@ SDL_Texture* Explosion3 = nullptr;
 SDL_Texture* Background = nullptr;
 SDL_Texture* Heart = nullptr;
 SDL_Texture* starttexture = nullptr;
+SDL_Texture* tmp = nullptr;
 
 Uint32 MisAnimationStart = SDL_GetTicks();
 Uint32 EneAnimationStart = SDL_GetTicks();
@@ -102,6 +105,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	}
 
 	EnemiesView = { 100, 0, width, height };
+	highscore = LoadHighScore();
+	highscore_string = "HighScore: " + std::to_string(highscore);
+	cout << LoadHighScore() << endl;
 
 	player = new Player("assets/texture/jett.png", renderer);
 	map = new Map(renderer, EneHealth, BulletDelayFrame, BulletSpeed);
@@ -115,6 +121,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	Background = TextureMana::TextureLoader("assets/texture/bg4.png", renderer);
 	Heart = TextureMana::TextureLoader("assets/texture/heart.png", renderer);
 	starttexture = TextureMana::TextureLoader("assets/texture/start_menu.png", renderer);
+	tmp = TextureMana::TextureLoader("assets/texture/gameover.png", renderer);
 
 	Music::GetInstance().SoundLoader("hit", "assets/music/hit.mp3");
 	Music::GetInstance().SoundLoader("explosion", "assets/music/explosion1.mp3");
@@ -122,8 +129,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	Music::GetInstance().MusicLoader("background", mname.c_str());
 	Music::GetInstance().MusicLoader("startmenu", "assets/music/startmenu.mp3");
 
-	Font::GetInstance().LoadFont("score", "assets/font/VT323-Regular.ttf", score_string.c_str(), 28, 255, 255, 255, 100, 680, renderer);
+	Font::GetInstance().LoadFont("score", "assets/font/VT323-Regular.ttf", score_string.c_str(), 28, 255, 255, 255, 100, 652, renderer);
 	Font::GetInstance().LoadFont("life", "assets/font/VT323-Regular.ttf", life_string.c_str(), 28, 255, 255, 255, 920, 680, renderer);
+	Font::GetInstance().LoadFont("highscore", "assets/font/VT323-Regular.ttf", highscore_string.c_str(), 28, 255, 255, 255, 100, 680, renderer);
 }
 
 
@@ -281,7 +289,7 @@ void Game::CheckCollision()
 					score += (*ene)->GetEValue();
 					score_string.erase(6);
 					score_string += to_string(score);
-					Font::GetInstance().LoadFont("score", "assets/font/VT323-Regular.ttf", score_string.c_str(), 28, 255, 255, 255, 100, 680, renderer);
+					Font::GetInstance().LoadFont("score", "assets/font/VT323-Regular.ttf", score_string.c_str(), 28, 255, 255, 255, 100, 652, renderer);
 
 					(*ene)->eneDestroy();
 					delete* ene;
@@ -337,7 +345,6 @@ void Game::update()
 		{
 			current_state = GameState::Settings1;
 			setting_menu = new Settings(MusicX, SoundX,renderer);
-			TurnOn = true;
 			delete start_menu;
 			start_menu = nullptr;
 		}
@@ -416,6 +423,34 @@ void Game::update()
 				delete game_menu;
 				game_menu = nullptr;
 			}
+			if (result == MenuResult::RESTART)
+			{
+				Restart();
+				current_state = GameState::Starting;
+				delete game_menu;
+				game_menu = nullptr;
+			}
+			if (result == MenuResult::STARTMENU)
+			{
+				Restart();
+				delete game_menu;
+				game_menu = nullptr;
+
+				if (setting_menu)
+				{
+					delete setting_menu;
+					setting_menu = nullptr;
+				}
+				if (start_menu)
+				{
+					delete start_menu;
+					start_menu = nullptr;
+				}
+
+				current_state = GameState::StartMenu;
+				start_menu = new StartMenu(renderer);
+				IsStarting = false;
+			}
 		}
 
 		if (start_menu && current_state == GameState::Starting)
@@ -456,6 +491,14 @@ void Game::update()
 				cout << health << endl;
 				PlayerColliDes = player->GetDesRect();
 				PlayerColliSrc = player->GetSrcRect();
+
+				if (health == 0)
+				{
+					UpdateHighScore();
+					highscore_string.erase(10);
+					highscore_string += to_string(highscore);
+					Font::GetInstance().LoadFont("highscore", "assets/font/VT323-Regular.ttf", highscore_string.c_str(), 28, 255, 255, 255, 100, 680, renderer);
+				}
 
 				if (!player->IsAniWork())
 				{
@@ -581,10 +624,11 @@ void Game::update()
 				LoadingLayout = SDL_GetTicks();
 			}
 			int ypos = 680 - Font::GetInstance().GetH("score");
-			Font::GetInstance().LoadFont("wave", "assets/font/VT323-Regular.ttf", wave_string.c_str(), 28, 255, 255, 255, 100, ypos, renderer);
+			Font::GetInstance().LoadFont("wave", "assets/font/VT323-Regular.ttf", wave_string.c_str(), 28, 255, 255, 255, 100, 624, renderer);
 			Font::GetInstance().LoadFont("life", "assets/font/VT323-Regular.ttf", life_string.c_str(), 28, 255, 255, 255, 920, 680, renderer);
-			Font::GetInstance().LoadFont("score", "assets/font/VT323-Regular.ttf", score_string.c_str(), 28, 255, 255, 255, 100, 680, renderer);
-			if (wave == 1)
+			Font::GetInstance().LoadFont("score", "assets/font/VT323-Regular.ttf", score_string.c_str(), 28, 255, 255, 255, 100, 652, renderer);
+			Font::GetInstance().LoadFont("highscore", "assets/font/VT323-Regular.ttf", highscore_string.c_str(), 28, 255, 255, 255, 100, 680, renderer);
+			if (wave <= 1)
 			{
 				if (SDL_GetTicks() - LoadingLayout > 5000)
 				{
@@ -605,7 +649,7 @@ void Game::update()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	if (current_state == GameState::StartMenu)
+	/*if (current_state == GameState::StartMenu)
 	{
 			start_menu->Render();
 	}
@@ -631,6 +675,7 @@ void Game::render()
 		Font::GetInstance().Render("score");
 		Font::GetInstance().Render("wave");
 		Font::GetInstance().Render("life");
+		Font::GetInstance().Render("highscore");
 
 		SDL_RenderCopy(renderer, Heart, NULL, &HeartRect);
 		for (auto drop = drop_store.begin(); drop != drop_store.end(); drop++)
@@ -664,7 +709,8 @@ void Game::render()
 		{
 			setting_menu->Render();
 		}
-	}
+	}*/
+	SDL_RenderCopy(renderer, tmp, NULL, NULL);
 	SDL_RenderPresent(renderer);
 }
 
@@ -722,3 +768,54 @@ void Game::clean()
 	SDL_Quit();
 }
 
+void Game::Restart()
+{
+	score_string = "Score:0";
+	wave_string = "Wave:1";
+	life_string = "3x";
+	score = 0;
+	this->wave = 1;
+	health = 3;
+	EneHealth = 3;
+	BulletDelayFrame = 0;
+	BulletSpeed = 4;
+	LoadingLayout = SDL_GetTicks();
+	delete map;
+	map = new Map(renderer, EneHealth, BulletDelayFrame, BulletSpeed);
+	map->LoadMap(player);
+	delete player;
+	player = new Player("assets/texture/jett.png", renderer);
+	if (drop_store.size() != 0)
+	{
+		for (auto& d : drop_store)
+		{
+			delete d;
+		}
+		drop_store.clear();
+	}
+
+	Music::GetInstance().PlayMusic("background");
+}
+
+int Game::LoadHighScore()
+{
+	std::ifstream file("data/highscore.txt");
+	int tmp = 0;
+	if (file.is_open())
+	{
+		file >> tmp;
+		file.close();
+	}
+	return tmp;
+}
+
+void Game::UpdateHighScore() {
+	if (score > highscore) {
+		highscore = score;
+		std::ofstream file("data/highscore.txt");
+		if (file.is_open()) {
+			file << highscore;
+			file.close();
+		}
+	}
+}

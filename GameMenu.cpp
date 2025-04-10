@@ -46,6 +46,14 @@ MenuResult GameMenu::Update()
 	{
 		return MenuResult::SETTINGS;
 	}
+	if (main_button->IsPressed())
+	{
+		return MenuResult::STARTMENU;
+	}
+	if (restart->IsPressed())
+	{
+		return MenuResult::RESTART;
+	}
 	return MenuResult::NONE;
 }
 

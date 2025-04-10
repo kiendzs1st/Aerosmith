@@ -11,6 +11,7 @@ enum class MenuResult
 	NONE,
 	STARTMENU,
 	START,
+	RESTART,
 	HELP,
 	QUIT,
 	SETTINGS

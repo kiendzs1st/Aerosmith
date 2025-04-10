@@ -34,6 +34,9 @@ public:
 	void clean();
 	bool Collision(SDL_Rect a, SDL_Rect b);
 	void CheckCollision();
+	void Restart();
+	int LoadHighScore();
+	void UpdateHighScore();
 	bool running() { return isRunning; }
 	static SDL_Renderer* renderer;
 	
@@ -48,6 +51,7 @@ private :
 
 	const int bgHeight = 2160;
 	int score = 0;
+	int highscore;
 	std::string score_string = "Score:0";
 	std::string wave_string = "Wave:1";
 	std::string life_string = "3x";
@@ -65,7 +69,7 @@ private :
 	bool IsScoring;
 	bool IsStarting = false;
 	bool IsSettingOpened = false;
-	bool TurnOn = false;
+	bool FirstWave = true;
 	int count = 0;
 	std::string mname = "assets/music/background1.mp3";
 
