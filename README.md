@@ -6,35 +6,44 @@ Ngưỡng điểm mong muốn: 9-10
 ___
 #**Tại sao game này xứng đáng với ngưỡng điểm 9-10**<br>
 1. Các tính năng:<br>
-   -Có hệ thống bắn đạn khi ấn nút
+   -Có hệ thống bắn đạn khi ấn nút<br>
+   
    -Có hệ thống vật phẩm rơi khi kẻ địch bị tiêu diệt:<br>
      +Strength: tăng sát thương khi bắn<br>
      +Speed: tăng tốc độ di chuyển<br>
      +Firing Speed: tăng tốc độ bắn<br>
      +Health: Tăng máu<br>
+     
    -Có hệ thống spawn kẻ địch theo từng wave:<br>
      + Kẻ địch được spawn theo một đội hình nhất định<br>
+     
    -Có hệ thống tăng độ khó theo màn chơi:<br>
      + Sau một số round nhất định, kẻ địch được tăng sức mạnh<br>
+     
    -Kiểm tra va chạm :<br>
      + Sử dụng thuật toán kiểm tra va chạm AABB Collision Detection<br>
    -Có hệ thống điều chỉnh âm thanh:<br>
      + Điều chỉnh âm lượng của nhạc nền<br>
      + Điều chỉnh âm lượng của sound effects<br>
      + Chỉnh nhạc nền<br>
+     
    2. Giao diện và trải nghiệm người dùng:<br>
       - UI đầy đủ:<br>
         + Có Menu chính với các nút Play, Settings, Help và Quit<br>
         + Trong khi chơi game có thể bật Game Menu để restart, vào settings hoặc thoát ra Menu Chính<br>
         + Menu khi chết có restart và trở về menu chính<br>
+        
       - Animation:<br>
         + Các đối tượng trong game đều có animation<br>
         + Animation được vẽ hoàn toàn bằng tay<br>
+        
       - Âm thanh đầy đủ:<br>
         +Có đầy đủ âm thanh khi đang ở màn hình chính hay khi đang chơi game<br>
         +Có đầy đủ sound effects trong gameplay<br>
+        
     3. Quản lý tài nguyên:<br>
        - Khi thoát game, mọi đối tượng trong Game đều được giải phóng, không gây ra memory leak<br>
+       
     4. Chất lượng code:<br>
        -Code có thể dễ dàng thêm các tính năng mới<br>
 ___
@@ -70,22 +79,22 @@ ___
 
    ___
    #**Checklist**<br>
- Dùng các lệnh vẽ hình
- Texture
- Background
- Event bàn phím
- Event chuột
- Animation (hoạt hình)
- Xử lý va chạm
- Score (có tính điểm)
- Lưu bảng điểm
- Sound
- Sound on off
- Background music
- Font
- Menu
- Pause/Resume
- Status bar / lives (mạng/máu...)
+ Dùng các lệnh vẽ hình<br>
+ Texture<br>
+ Background<br>
+ Event bàn phím<br>
+ Event chuột<br>
+ Animation (hoạt hình)<br>
+ Xử lý va chạm<br>
+ Score (có tính điểm)<br>
+ Lưu bảng điểm<br>
+ Sound<br>
+ Sound on off<br>
+ Background music<br>
+ Font<br>
+ Menu<br>
+ Pause/Resume<br>
+ Status bar / lives (mạng/máu...)<br>
    
 
        
