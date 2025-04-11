@@ -40,20 +40,20 @@ ___
        -Code có thể dễ dàng thêm các tính năng mới
 ___
 #**Mức độ sử dụng AI**
-AI được sử dụng chủ yếu để tra cứu và học về các hàm của SDL2 và được sử dụng để hỗ trợ Debug khi không còn cách nào khác
+Mọi thứ trong game đều được tự code hoặc đi tham khảo video và document trên mạng.AI được sử dụng chủ yếu để tra cứu và học về các hàm của SDL2, vẽ background của GameOver và được sử dụng để hỗ trợ Debug khi không còn cách nào khác
 ___
-#**Các phần code tham khảo**
+#**Các phần code tham khảo**<br>
 [Hàm va chạm](https://lazyfoo.net/tutorials/SDL/)<br>
 [Tilemap](https://youtu.be/1eaxE_waDNc?si=LS7IJwscN-BuCu9w)<br>
 [Texture Management](https://www.youtube.com/watch?v=RqvpkZ7I1aU&list=PLhfAbcv9cehhkG7ZQK0nfIGJC_C-wSLrx&index=6)<br>
 ___
-# **Các nguồn học**
+# **Các nguồn học**<br>
 [Lazyfoo](https://lazyfoo.net/tutorials/SDL/)<br>
 [Let's Make Game](https://www.youtube.com/@CarlBirch)<br>
 [codergopher](https://www.youtube.com/@codergopher8270)<br>
 ___
 #**Các nguồn tham khảo**
-1. Các nguồn âm thanh:
+1. Các nguồn âm thanh:<br>
    [Nhạc nền 1](https://youtu.be/U0TXIXTzJEY?si=1Tupd7gzOQQhqCeL)<br>
    [Nhạc nền 2](https://youtu.be/QoHrfKZ5jno?si=0g4zs-rW3eS9G4hk)<br>
    [Nhạc nền 3](https://youtu.be/daFi4MScfl8?si=VuAmxG6SJmfQbaNc)<br>
@@ -64,9 +64,29 @@ ___
    [Main menu background music](https://www.youtube.com/watch?v=F6z1CH4oX2o&list=PL0QAEXDsccILdga79CcswY56cxSfLUXY9&index=13)<br>
    [Tiếng ăn vật phẩm](https://youtu.be/uTg0i6j7k34?si=nkSlcO_52h_jfpGp)<br>
 
-2. Các nguồn hình ảnh
+2. Các nguồn hình ảnh:<br>
    [Background Menu Chính](https://za.pinterest.com/pin/54395107993157287/)<br>
-   [Background GameOver]()
+   [Phông chữ 1](https://waxdroplet.itch.io/pixelart-alphabet)<br>
+   [Phông chữ 2](https://arijkx.itch.io/free-pixel-art-blue-light-letters)<br>
+
+   ___
+   #**Checklist**
+ Dùng các lệnh vẽ hình
+ Texture
+ Background
+ Event bàn phím
+ Event chuột
+ Animation (hoạt hình)
+ Xử lý va chạm
+ Score (có tính điểm)
+ Lưu bảng điểm
+ Sound
+ Sound on off
+ Background music
+ Font
+ Menu
+ Pause/Resume
+ Status bar / lives (mạng/máu...)
    
 
        
