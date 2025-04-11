@@ -15,11 +15,13 @@ void Font::LoadFont(const char* id, const char* filename, const char* text, int 
     renderer = ren;
     text_store[id] = text;
 
-    if (map.count(id)) {
+    if (map.count(id)) 
+    {
         SDL_DestroyTexture(map[id]);
         map.erase(id);
     }
-    if (font_store.count(id)) {
+    if (font_store.count(id)) 
+    {
         TTF_CloseFont(font_store[id]);
         font_store.erase(id);
     }

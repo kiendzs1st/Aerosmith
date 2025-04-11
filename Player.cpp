@@ -98,7 +98,7 @@ void Player::PlayerUpdate()
 			{
 				Music::GetInstance().PlaySound("shoot");
 				MissileStore.emplace_back(new Missile("assets/texture/missle.png", RenderPlayer, this));
-				FireCoolDown = 5 - fcd;
+				FireCoolDown = 25 - fcd;
 			}
 		}
 

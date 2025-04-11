@@ -425,7 +425,6 @@ void Game::update()
 		}
 		if (result == MenuResult::RESTART)
 		{
-			cout << 1 << endl;
 			current_state = GameState::Starting;
 			IsStarting = true;
 			Music::GetInstance().MusicLoader("background", mname.c_str());
@@ -650,23 +649,19 @@ void Game::update()
 				wave_string.erase(5);
 				wave_string += to_string(wave);
 				Font::GetInstance().Update(wave_string.c_str(), "wave");
-				cout << "Wave : " << wave << endl;
 				if (wave % 2 == 0)
 				{
 					if (EneHealth < 10)
 					{
 						EneHealth++;
-						cout << "Enemies' health: " << EneHealth << endl;
 					}
 					if (BulletDelayFrame <= 2000 && 3000 - BulletDelayFrame > 1000)
 					{
 						BulletDelayFrame += 500;
-						cout << "BulletCoolDown: " << 3000 - BulletDelayFrame << endl;
 					}
 					if (BulletSpeed < 10)
 					{
 						BulletSpeed += 2;
-						cout << "Bullet Speed: " << BulletSpeed << endl;
 					}
 				}
 				delete map;
