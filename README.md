@@ -43,30 +43,29 @@ ___
 AI được sử dụng chủ yếu để tra cứu và học về các hàm của SDL2 và được sử dụng để hỗ trợ Debug khi không còn cách nào khác
 ___
 #**Các phần code tham khảo**
-[Hàm va chạm](![image](https://github.com/user-attachments/assets/59f5166a-ed1c-4580-b62a-8668ec92bb60)
-)
-[Tilemap](https://youtu.be/1eaxE_waDNc?si=LS7IJwscN-BuCu9w)
-[Texture Management](https://www.youtube.com/watch?v=RqvpkZ7I1aU&list=PLhfAbcv9cehhkG7ZQK0nfIGJC_C-wSLrx&index=6)
+[Hàm va chạm](https://lazyfoo.net/tutorials/SDL/)<br>
+[Tilemap](https://youtu.be/1eaxE_waDNc?si=LS7IJwscN-BuCu9w)<br>
+[Texture Management](https://www.youtube.com/watch?v=RqvpkZ7I1aU&list=PLhfAbcv9cehhkG7ZQK0nfIGJC_C-wSLrx&index=6)<br>
 ___
 # **Các nguồn học**
-[Lazyfoo](https://lazyfoo.net/tutorials/SDL/)
-[Let's Make Game](https://www.youtube.com/@CarlBirch)
-[codergopher](https://www.youtube.com/@codergopher8270)
+[Lazyfoo](https://lazyfoo.net/tutorials/SDL/)<br>
+[Let's Make Game](https://www.youtube.com/@CarlBirch)<br>
+[codergopher](https://www.youtube.com/@codergopher8270)<br>
 ___
 #**Các nguồn tham khảo**
 1. Các nguồn âm thanh:
-   [Nhạc nền 1](https://youtu.be/U0TXIXTzJEY?si=1Tupd7gzOQQhqCeL)
-   [Nhạc nền 2](https://youtu.be/QoHrfKZ5jno?si=0g4zs-rW3eS9G4hk)
-   [Nhạc nền 3](https://youtu.be/daFi4MScfl8?si=VuAmxG6SJmfQbaNc)
-   [Explosion](https://youtu.be/daFi4MScfl8?si=VuAmxG6SJmfQbaNc)
-   [Hit sound effect](https://youtu.be/iyuTagR1u44?si=FJULzoLCFXJpJ2iR)
-   [player shooting sound effect](https://youtu.be/FuvmTL1nPDs?si=8bs-oQyU3FLIU0sm)
-   [Enemies shooting sound effect](https://youtu.be/jz-awweTKw8?si=BOx02hFAmv3ELEsM)
-   [Main menu background music](https://www.youtube.com/watch?v=F6z1CH4oX2o&list=PL0QAEXDsccILdga79CcswY56cxSfLUXY9&index=13)
-   [Tiếng ăn vật phẩm](https://youtu.be/uTg0i6j7k34?si=nkSlcO_52h_jfpGp)
+   [Nhạc nền 1](https://youtu.be/U0TXIXTzJEY?si=1Tupd7gzOQQhqCeL)<br>
+   [Nhạc nền 2](https://youtu.be/QoHrfKZ5jno?si=0g4zs-rW3eS9G4hk)<br>
+   [Nhạc nền 3](https://youtu.be/daFi4MScfl8?si=VuAmxG6SJmfQbaNc)<br>
+   [Explosion](https://youtu.be/daFi4MScfl8?si=VuAmxG6SJmfQbaNc)<br>
+   [Hit sound effect](https://youtu.be/iyuTagR1u44?si=FJULzoLCFXJpJ2iR)<br>
+   [player shooting sound effect](https://youtu.be/FuvmTL1nPDs?si=8bs-oQyU3FLIU0sm)<br>
+   [Enemies shooting sound effect](https://youtu.be/jz-awweTKw8?si=BOx02hFAmv3ELEsM)<br>
+   [Main menu background music](https://www.youtube.com/watch?v=F6z1CH4oX2o&list=PL0QAEXDsccILdga79CcswY56cxSfLUXY9&index=13)<br>
+   [Tiếng ăn vật phẩm](https://youtu.be/uTg0i6j7k34?si=nkSlcO_52h_jfpGp)<br>
 
 2. Các nguồn hình ảnh
-   [Background Menu Chính](https://za.pinterest.com/pin/54395107993157287/)
+   [Background Menu Chính](https://za.pinterest.com/pin/54395107993157287/)<br>
    [Background GameOver]()
    
 
