@@ -14,6 +14,7 @@ public:
 
 	void LoadFont(const char* id,const char* filename, const char* text, int FontSize, int r, int g, int b, int xpos, int ypos, SDL_Renderer* ren);
 	void Render(string id);
+	void Update(const char* text, string id);
 	void ChangeColor(string id, int r, int g, int b);
 	int GetW(string id);
 	int GetH(string id);

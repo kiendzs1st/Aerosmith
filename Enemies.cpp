@@ -7,9 +7,6 @@ const int column = 11;
 
 Animation EniAni = { 64, 64 };
 
-EnemiesBullet* bullet = nullptr;
-
-
 Enemies::Enemies(const char* filename, SDL_Renderer* ren, int i, int j, int frame_num, int ene_health, int bullet_delay, int bullet_velo, Player* playerptr)
 {
 	eren = ren;
@@ -41,8 +38,6 @@ Enemies::Enemies(const char* filename, SDL_Renderer* ren, int i, int j, int fram
 
 	bullet_speed = bullet_velo;
 
-	bullet = new EnemiesBullet("assets/texture/lazer.png",eren, bullet_speed, this);
-
 	Music::GetInstance().SoundLoader("laser", "assets/music/laser.mp3");
 }
  
@@ -63,7 +58,6 @@ Enemies::~Enemies()
 		delete b;
 	}
 	BulletStore.clear();
-	delete bullet;
 	eneDestroy();
 	Music::GetInstance().CleanSound("laser");
 }

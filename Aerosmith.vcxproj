@@ -142,6 +142,7 @@
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMenu.cpp" />
+    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="HelpMenu.cpp" />
     <ClCompile Include="jojo.cpp" />
     <ClCompile Include="Missile.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMenu.h" />
+    <ClInclude Include="GameOver.h" />
     <ClInclude Include="HelpMenu.h" />
     <ClInclude Include="jojo.h" />
     <ClInclude Include="Missle.h" />

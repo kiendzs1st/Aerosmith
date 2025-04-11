@@ -1,5 +1,4 @@
 #include "Settings.h"
-#include <iostream>
 
 Settings::Settings(int MusicX, int SoundX, SDL_Renderer* ren)
 {
@@ -14,8 +13,6 @@ Settings::Settings(int MusicX, int SoundX, SDL_Renderer* ren)
 	one = new One(600, 465, renderer);
 	Volume::GetInstance().LoadChanger("Music", MusicX, 300, renderer);
 	Volume::GetInstance().LoadChanger("Sound", SoundX,400, renderer);
-
-	std::cout << "Created" << std::endl;
 }
 
 Settings::~Settings()
@@ -25,8 +22,8 @@ Settings::~Settings()
 	delete one;
 	delete jojo;
 	delete xbutton;
+	Volume::GetInstance().Clean();
 	
-	std::cout << "Destroyed" << std::endl;
 }
 
 void Settings::Event(SDL_Event& event)
@@ -44,6 +41,7 @@ MenuResult Settings::Update()
 	if (xbutton->IsPressed())
 	{
 		return MenuResult::START;
+		Volume::GetInstance().Clean();
 	}
 	Volume::GetInstance().Update("Music");
 	Volume::GetInstance().Update("Sound");

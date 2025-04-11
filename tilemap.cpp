@@ -1,4 +1,5 @@
 #include "Tilemap.h"
+#include <vld.h>
 
 extern Missile* missle;
 
@@ -17,7 +18,7 @@ Map::Map(SDL_Renderer* ren, int ene_health, int BulletDelay, int BulletVelo)
 
 Map::~Map()
 {
-	for (auto x : estore)
+	for (auto& x : estore)
 	{
 		delete x;
 	}

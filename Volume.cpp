@@ -1,4 +1,4 @@
-	#include "Volume.h"
+﻿	#include "Volume.h"
 
 	Volume::Volume()
 	{
@@ -7,8 +7,7 @@
 
 	Volume::~Volume()
 	{
-		SDL_DestroyTexture(normal_thumb);
-		SDL_DestroyTexture(hover_thumb);
+		Clean();
 	}
 
 	Volume& Volume::GetInstance()
@@ -111,4 +110,21 @@
 	int Volume::GetX(string id)
 	{
 		return des_store[id].x;
+	}
+
+	void Volume::Clean()
+	{
+		if (normal_thumb) SDL_DestroyTexture(normal_thumb);
+		if (hover_thumb) SDL_DestroyTexture(hover_thumb);
+		if (bar) SDL_DestroyTexture(bar);
+
+		normal_thumb = nullptr;
+		hover_thumb = nullptr;
+		bar = nullptr;
+		x_store.clear();
+		y_store.clear();
+		des_store.clear();
+		bar_store.clear();
+		is_hover.clear();
+		is_pressed.clear();
 	}

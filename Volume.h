@@ -15,6 +15,7 @@ public:
 	void Update(const char* id);
 	float Percentvolume(const char* id);
 	void Render(const char* id);
+	void Clean();
 
 	bool IsPressed(string id);
 	int GetX(string id);

@@ -15,6 +15,9 @@ Music& Music::GetInstance()
 
 void Music::MusicLoader(const string& id, const char* filename)
 {
+	if (music_store.count(id)) {
+		Mix_FreeMusic(music_store[id]);
+	}
 	Mix_Music* music = Mix_LoadMUS(filename);
 	if (music)
 	{
@@ -22,14 +25,19 @@ void Music::MusicLoader(const string& id, const char* filename)
 	}
 }
 
+
 void Music::SoundLoader(const string& id, const char* filename)
 {
+	if (sound_store.count(id)) {
+		Mix_FreeChunk(sound_store[id]);
+	}
 	Mix_Chunk* sound = Mix_LoadWAV(filename);
 	if (sound)
 	{
 		sound_store[id] = sound;
 	}
 }
+
 
 void Music::PlayMusic(const string& id, int loops)
 {

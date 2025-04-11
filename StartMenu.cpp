@@ -1,5 +1,4 @@
 ﻿#include "StartMenu.h"
-#include <iostream>
 
 StartMenu::StartMenu(SDL_Renderer* ren)
 {

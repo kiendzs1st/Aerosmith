@@ -1,7 +1,6 @@
-﻿#define _CRTDBG_MAP_ALLOC
+﻿
 #include "Game.h"
-#include <crtdbg.h>
-#define new new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#include <vld.h>
 
 using namespace std;
 
@@ -13,7 +12,8 @@ Game* game = nullptr;
 
 int main(int argv, char* argc[])
 {
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
+
 	game = new Game();
 
 	Uint32 FrameStart;
@@ -39,6 +39,5 @@ int main(int argv, char* argc[])
 	delete game;
 	game = nullptr;
 
-	_CrtDumpMemoryLeaks();
 	return 0;
 }
