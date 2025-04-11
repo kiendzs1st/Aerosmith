@@ -4,7 +4,7 @@ Mã sinh viên: 24021538
 Thể loại game: Plane Shooter- Điều khiển máy bay bắn kẻ địch
 Ngưỡng điểm mong muốn: 9-10
 ___
-#**Tại sao game này xứng đáng với ngưỡng điểm 9-10**
+#**Tại sao game này xứng đáng với ngưỡng điểm 9-10**<br>
 1. Các tính năng:<br>
    -Có hệ thống bắn đạn khi ấn nút
    -Có hệ thống vật phẩm rơi khi kẻ địch bị tiêu diệt:<br>
@@ -38,7 +38,7 @@ ___
     4. Chất lượng code:<br>
        -Code có thể dễ dàng thêm các tính năng mới<br>
 ___
-#**Mức độ sử dụng AI**
+#**Mức độ sử dụng AI**<br>
 Mọi thứ trong game đều được tự code hoặc đi tham khảo video và document trên mạng.AI được sử dụng chủ yếu để tra cứu và học về các hàm của SDL2, vẽ background của GameOver và được sử dụng để hỗ trợ Debug khi không còn cách nào khác
 ___
 #**Các phần code tham khảo**<br>
@@ -51,7 +51,7 @@ ___
 [Let's Make Game](https://www.youtube.com/@CarlBirch)<br>
 [codergopher](https://www.youtube.com/@codergopher8270)<br>
 ___
-#**Các nguồn tham khảo**
+#**Các nguồn tham khảo**<br>
 1. Các nguồn âm thanh:<br>
    [Nhạc nền 1](https://youtu.be/U0TXIXTzJEY?si=1Tupd7gzOQQhqCeL)<br>
    [Nhạc nền 2](https://youtu.be/QoHrfKZ5jno?si=0g4zs-rW3eS9G4hk)<br>
@@ -69,7 +69,7 @@ ___
    [Phông chữ 2](https://arijkx.itch.io/free-pixel-art-blue-light-letters)<br>
 
    ___
-   #**Checklist**
+   #**Checklist**<br>
  Dùng các lệnh vẽ hình
  Texture
  Background
