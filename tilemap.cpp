@@ -1,5 +1,4 @@
 #include "Tilemap.h"
-#include <vld.h>
 
 extern Missile* missle;
 

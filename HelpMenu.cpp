@@ -13,9 +13,18 @@ HelpMenu::HelpMenu(SDL_Renderer* ren)
 
 HelpMenu::~HelpMenu()
 {
-	SDL_DestroyTexture(texture);
-	delete xbutton;
+	if (texture)
+	{
+		SDL_DestroyTexture(texture);
+		texture = nullptr;
+	}
+	if (xbutton)
+	{
+		delete xbutton;
+		xbutton = nullptr;
+	}
 }
+
 
 void HelpMenu::Event(SDL_Event& event)
 {

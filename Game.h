@@ -37,6 +37,7 @@ public:
 	void Restart();
 	int LoadHighScore();
 	void UpdateHighScore();
+	void PlayMusicByState();
 	bool running() { return isRunning; }
 	static SDL_Renderer* renderer;
 	

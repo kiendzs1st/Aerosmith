@@ -8,8 +8,8 @@ GameOver::GameOver(SDL_Renderer* ren, int score, int highscore)
 	restart = new RestartButton(412, 500, renderer);
 	string score_string = "Your Score: " + to_string(score);
 	string highscore_string = "Highest Score: " + to_string(highscore);
-	Font::GetInstance().LoadFont("finalscore", "assets/font/VT323-Regular.ttf", score_string.c_str(), 40, 255, 255, 255, 412, 250, renderer);
-	Font::GetInstance().LoadFont("finalhighscore", "assets/font/VT323-Regular.ttf", highscore_string.c_str(), 28, 255, 255, 255, 412, 300, renderer);
+	Font::GetInstance().LoadFont("finalscore", "assets/font/VT323-Regular.ttf", score_string.c_str(), 50, 255, 255, 255, 360, 250, renderer);
+	Font::GetInstance().LoadFont("finalhighscore", "assets/font/VT323-Regular.ttf", highscore_string.c_str(), 50, 255, 255, 255, 360, 300, renderer);
 }
 
 GameOver::~GameOver()

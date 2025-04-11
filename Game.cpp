@@ -106,17 +106,10 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	EnemiesView = { 100, 0, width, height };
 	highscore = LoadHighScore();
-	highscore_string = "HighScore: " + std::to_string(highscore);
+	highscore_string = "HighScore:" + std::to_string(highscore);
 	current_state = GameState::StartMenu;
 	start_menu = new StartMenu(renderer);
 	Music::GetInstance().MusicLoader("startmenu", "assets/music/startmenu.mp3");
-
-	Explosion1 = TextureMana::TextureLoader("assets/texture/explosion1.png", renderer);
-	Explosion2 = TextureMana::TextureLoader("assets/texture/explosion2.png", renderer);
-	Explosion3 = TextureMana::TextureLoader("assets/texture/explosion3.png", renderer);
-	Background = TextureMana::TextureLoader("assets/texture/bg4.png", renderer);
-	Heart = TextureMana::TextureLoader("assets/texture/heart.png", renderer);
-	starttexture = TextureMana::TextureLoader("assets/texture/start_menu.png", renderer);
 
 	Font::GetInstance().LoadFont("wave", "assets/font/VT323-Regular.ttf", wave_string.c_str(), 28, 255, 255, 255, 100, 624, renderer);
 	Font::GetInstance().LoadFont("life", "assets/font/VT323-Regular.ttf", life_string.c_str(), 28, 255, 255, 255, 920, 680, renderer);
@@ -331,6 +324,11 @@ void Game::update()
 			Music::GetInstance().SoundLoader("ting", "assets/music/ting.mp3");
 			Music::GetInstance().MusicLoader("background", mname.c_str());
 
+			Explosion1 = TextureMana::TextureLoader("assets/texture/explosion1.png", renderer);
+			Explosion2 = TextureMana::TextureLoader("assets/texture/explosion2.png", renderer);
+			Explosion3 = TextureMana::TextureLoader("assets/texture/explosion3.png", renderer);
+			Background = TextureMana::TextureLoader("assets/texture/bg4.png", renderer);
+			Heart = TextureMana::TextureLoader("assets/texture/heart.png", renderer);
 			current_state = GameState::Starting;
 			delete start_menu;
 			start_menu = nullptr;
@@ -338,6 +336,7 @@ void Game::update()
 		}
 		if (result == MenuResult::HELP)
 		{
+			VLDReportLeaks();
 			helpping_menu = new HelpMenu(renderer);
 			current_state = GameState::Help;
 			delete start_menu;
@@ -346,6 +345,7 @@ void Game::update()
 		if (result == MenuResult::SETTINGS)
 		{
 			current_state = GameState::Settings1;
+			starttexture = TextureMana::TextureLoader("assets/texture/start_menu.png", renderer);
 			setting_menu = new Settings(MusicX, SoundX,renderer);
 			delete start_menu;
 			start_menu = nullptr;
@@ -357,8 +357,8 @@ void Game::update()
 	}
 	if (current_state == GameState::Help)
 	{
-		helpping_menu->Update();
-		if (helpping_menu->Update() == MenuResult::START)
+		MenuResult result = helpping_menu->Update();
+		if (result == MenuResult::START)
 		{
 			start_menu = new StartMenu(renderer);
 			current_state = GameState::StartMenu;
@@ -368,7 +368,7 @@ void Game::update()
 	}
 	if (current_state == GameState::Settings1)
 	{
-		setting_menu->Update();
+		MenuResult result = setting_menu->Update();
 		MusicX = setting_menu->MusicDes();
 		SoundX = setting_menu->SoundDes();
 		if (setting_menu->MusicName() != "")
@@ -376,6 +376,7 @@ void Game::update()
 			mname = setting_menu->MusicName();
 			Music::GetInstance().CleanMusic("background");
 			Music::GetInstance().MusicLoader("background", mname.c_str());
+
 		}
 		if (setting_menu->IsChange())
 		{
@@ -383,7 +384,7 @@ void Game::update()
 			Music::GetInstance().SoundVolume(setting_menu->SoundPercent());
 		}
 
-		if (setting_menu->Update() == MenuResult::START)
+		if (result == MenuResult::START)
 		{
 			start_menu = new StartMenu(renderer);
 			if (IsStarting)
@@ -400,23 +401,40 @@ void Game::update()
 			}
 			delete setting_menu;
 			setting_menu = nullptr;
+			SDL_DestroyTexture(starttexture);
 		}
-	}
+	} 
 	if (current_state == GameState::GameOver)
 	{
-		Restart();
+		Music::GetInstance().CleanMusic("background");
+		SDL_DestroyTexture(Explosion1);
+		SDL_DestroyTexture(Explosion2);
+		SDL_DestroyTexture(Explosion3);
+		SDL_DestroyTexture(Background);
+		SDL_DestroyTexture(Heart);
 		MenuResult result = game_over->Update();
 		if (result == MenuResult::STARTMENU)
 		{
 			current_state = GameState::StartMenu;
 			start_menu = new StartMenu(renderer);
+			Restart();
+			Music::GetInstance().MusicLoader("startmenu", "assets/music/startmenu.mp3");
+			Music::GetInstance().PlayMusic("startmenu");
 			delete game_over;
 			game_over = nullptr;
 		}
 		if (result == MenuResult::RESTART)
 		{
+			cout << 1 << endl;
 			current_state = GameState::Starting;
 			IsStarting = true;
+			Music::GetInstance().MusicLoader("background", mname.c_str());
+			Explosion1 = TextureMana::TextureLoader("assets/texture/explosion1.png", renderer);
+			Explosion2 = TextureMana::TextureLoader("assets/texture/explosion2.png", renderer);
+			Explosion3 = TextureMana::TextureLoader("assets/texture/explosion3.png", renderer);
+			Background = TextureMana::TextureLoader("assets/texture/bg4.png", renderer);
+			Heart = TextureMana::TextureLoader("assets/texture/heart.png", renderer);
+			Restart();
 			delete game_over;
 			game_over = nullptr;
 		}
@@ -446,6 +464,9 @@ void Game::update()
 			}
 			if (result == MenuResult::RESTART)
 			{
+				cout << 1 << endl;
+				Music::GetInstance().CleanMusic("background");
+				Music::GetInstance().MusicLoader("background", mname.c_str());
 				Restart();
 				current_state = GameState::Starting;
 				delete game_menu;
@@ -501,6 +522,12 @@ void Game::update()
 			}
 			desrect.h = desrect.w = 32;
 			player->PlayerUpdate();
+			if (score > highscore)
+			{
+				highscore_string.erase(10);
+				highscore_string += to_string(score);
+				Font::GetInstance().Update(highscore_string.c_str(), "highscore");
+			}
 			if ((player->PlayerIsDamaged() && health > 0))
 			{
 				health--;
@@ -820,8 +847,11 @@ void Game::Restart()
 		}
 		drop_store.clear();
 	}
-
-	Music::GetInstance().PlayMusic("background");
+	
+	Font::GetInstance().Update(score_string.c_str(), "score");
+	Font::GetInstance().Update(highscore_string.c_str(), "highscore");
+	Font::GetInstance().Update(wave_string.c_str(), "wave");
+	Font::GetInstance().Update(life_string.c_str(), "life");
 }
 
 int Game::LoadHighScore()

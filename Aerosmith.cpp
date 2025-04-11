@@ -1,6 +1,5 @@
 ﻿
 #include "Game.h"
-#include <vld.h>
 
 using namespace std;
 

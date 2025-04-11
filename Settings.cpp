@@ -17,14 +17,34 @@ Settings::Settings(int MusicX, int SoundX, SDL_Renderer* ren)
 
 Settings::~Settings()
 {
-	SDL_DestroyTexture(texture);
-	delete geats;
-	delete one;
-	delete jojo;
-	delete xbutton;
+	if (texture)
+	{
+		SDL_DestroyTexture(texture);
+		texture = nullptr;
+	}
+	if (geats)
+	{
+		delete geats;
+		geats = nullptr;
+	}
+	if (one)
+	{
+		delete one;
+		one = nullptr;
+	}
+	if (jojo)
+	{
+		delete jojo;
+		jojo = nullptr;
+	}
+	if (xbutton)
+	{
+		delete xbutton;
+		xbutton = nullptr;
+	}
 	Volume::GetInstance().Clean();
-	
 }
+
 
 void Settings::Event(SDL_Event& event)
 {

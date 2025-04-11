@@ -1,5 +1,4 @@
 #include "GameMenu.h"
-#include <iostream>
 
 GameMenu::GameMenu( SDL_Renderer* ren)
 {
@@ -12,8 +11,6 @@ GameMenu::GameMenu( SDL_Renderer* ren)
 	restart = new RestartButton(562, 250, renderer);
 	set = new SettingButton(262, 450, renderer);
 	main_button = new MainButton(562, 450, renderer);
-
-	std::cout << "Generated successfully" << std::endl;
 }
 
 GameMenu::~GameMenu()
@@ -24,7 +21,6 @@ GameMenu::~GameMenu()
 	delete resume;
 	delete main_button;
 	delete xbutton;
-	std::cout << "Destroy" << std::endl;
 }
 
 void GameMenu::Event(SDL_Event& event)
