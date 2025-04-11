@@ -5,39 +5,38 @@ Thể loại game: Plane Shooter- Điều khiển máy bay bắn kẻ địch
 Ngưỡng điểm mong muốn: 9-10
 ___
 #**Tại sao game này xứng đáng với ngưỡng điểm 9-10**
-1. Các tính năng:
+1. Các tính năng:<br>
    -Có hệ thống bắn đạn khi ấn nút
-   -Có hệ thống vật phẩm rơi khi kẻ địch bị tiêu diệt:
-     +Strength: tăng sát thương khi bắn
-     +Speed: tăng tốc độ di chuyển
-     +Firing Speed: tăng tốc độ bắn
-     +Health: Tăng máu
-   -Có hệ thống spawn kẻ địch theo từng wave:
-     + Kẻ địch được spawn theo một đội hình nhất định
-   -Có hệ thống tăng độ khó theo màn chơi:
-     + Sau một số round nhất định, kẻ địch được tăng sức mạnh
-   -Kiểm tra va chạm :
-     + Sử dụng thuật toán kiểm tra va chạm AABB Collision Detection
-
-   -Có hệ thống điều chỉnh âm thanh:
-     + Điều chỉnh âm lượng của nhạc nền
-     + Điều chỉnh âm lượng của sound effects
-     + Chỉnh nhạc nền
-   2. Giao diện và trải nghiệm người dùng:
-      - UI đầy đủ:
-        + Có Menu chính với các nút Play, Settings, Help và Quit
-        + Trong khi chơi game có thể bật Game Menu để restart, vào settings hoặc thoát ra Menu Chính
-        + Menu khi chết có restart và trở về menu chính
-      - Animation:
-        + Các đối tượng trong game đều có animation
-        + Animation được vẽ hoàn toàn bằng tay
-      - Âm thanh đầy đủ:
-        +Có đầy đủ âm thanh khi đang ở màn hình chính hay khi đang chơi game
-        +Có đầy đủ sound effects trong gameplay
-    3. Quản lý tài nguyên:
-       - Khi thoát game, mọi đối tượng trong Game đều được giải phóng, không gây ra memory leak
-    4. Chất lượng code:
-       -Code có thể dễ dàng thêm các tính năng mới
+   -Có hệ thống vật phẩm rơi khi kẻ địch bị tiêu diệt:<br>
+     +Strength: tăng sát thương khi bắn<br>
+     +Speed: tăng tốc độ di chuyển<br>
+     +Firing Speed: tăng tốc độ bắn<br>
+     +Health: Tăng máu<br>
+   -Có hệ thống spawn kẻ địch theo từng wave:<br>
+     + Kẻ địch được spawn theo một đội hình nhất định<br>
+   -Có hệ thống tăng độ khó theo màn chơi:<br>
+     + Sau một số round nhất định, kẻ địch được tăng sức mạnh<br>
+   -Kiểm tra va chạm :<br>
+     + Sử dụng thuật toán kiểm tra va chạm AABB Collision Detection<br>
+   -Có hệ thống điều chỉnh âm thanh:<br>
+     + Điều chỉnh âm lượng của nhạc nền<br>
+     + Điều chỉnh âm lượng của sound effects<br>
+     + Chỉnh nhạc nền<br>
+   2. Giao diện và trải nghiệm người dùng:<br>
+      - UI đầy đủ:<br>
+        + Có Menu chính với các nút Play, Settings, Help và Quit<br>
+        + Trong khi chơi game có thể bật Game Menu để restart, vào settings hoặc thoát ra Menu Chính<br>
+        + Menu khi chết có restart và trở về menu chính<br>
+      - Animation:<br>
+        + Các đối tượng trong game đều có animation<br>
+        + Animation được vẽ hoàn toàn bằng tay<br>
+      - Âm thanh đầy đủ:<br>
+        +Có đầy đủ âm thanh khi đang ở màn hình chính hay khi đang chơi game<br>
+        +Có đầy đủ sound effects trong gameplay<br>
+    3. Quản lý tài nguyên:<br>
+       - Khi thoát game, mọi đối tượng trong Game đều được giải phóng, không gây ra memory leak<br>
+    4. Chất lượng code:<br>
+       -Code có thể dễ dàng thêm các tính năng mới<br>
 ___
 #**Mức độ sử dụng AI**
 Mọi thứ trong game đều được tự code hoặc đi tham khảo video và document trên mạng.AI được sử dụng chủ yếu để tra cứu và học về các hàm của SDL2, vẽ background của GameOver và được sử dụng để hỗ trợ Debug khi không còn cách nào khác
