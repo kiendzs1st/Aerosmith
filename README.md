@@ -75,7 +75,6 @@ ___
    [Explosion](https://youtu.be/daFi4MScfl8?si=VuAmxG6SJmfQbaNc)<br>
    [Hit sound effect](https://youtu.be/iyuTagR1u44?si=FJULzoLCFXJpJ2iR)<br>
    [player shooting sound effect](https://youtu.be/FuvmTL1nPDs?si=8bs-oQyU3FLIU0sm)<br>
-   [Enemies shooting sound effect](https://youtu.be/jz-awweTKw8?si=BOx02hFAmv3ELEsM)<br>
    [Main menu background music](https://www.youtube.com/watch?v=F6z1CH4oX2o&list=PL0QAEXDsccILdga79CcswY56cxSfLUXY9&index=13)<br>
    [Tiếng ăn vật phẩm](https://youtu.be/uTg0i6j7k34?si=nkSlcO_52h_jfpGp)<br>
 
