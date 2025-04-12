@@ -12,7 +12,6 @@
 #include "GameMenu.h"
 #include "GameOver.h"
 #include <fstream>
-#include <vld.h>
 
 using namespace std;
 
@@ -336,7 +335,6 @@ void Game::update()
 		}
 		if (result == MenuResult::HELP)
 		{
-			VLDReportLeaks();
 			helpping_menu = new HelpMenu(renderer);
 			current_state = GameState::Help;
 			delete start_menu;
