@@ -33,7 +33,7 @@ ___
       +Có hệ thống ghi lại highscore <br>
       +Có hệ thống cập nhật highscore trực tiếp ngay khi đang chơi game <br>
      
-   2. Giao diện và trải nghiệm người dùng:<br>
+2. Giao diện và trải nghiệm người dùng:<br>
       - UI đầy đủ:<br>
         + Có Menu chính với các nút Play, Settings, Help và Quit<br>
         + Trong khi chơi game có thể bật Game Menu để restart, vào settings hoặc thoát ra Menu Chính<br>
@@ -48,10 +48,10 @@ ___
         +Có đầy đủ âm thanh khi đang ở màn hình chính hay khi đang chơi game<br>
         +Có đầy đủ sound effects trong gameplay<br>
         
-    3. Quản lý tài nguyên:<br>
+   3. Quản lý tài nguyên:<br>
        - Khi thoát game, mọi đối tượng trong Game đều được giải phóng, không gây ra memory leak<br>
        
-    4. Chất lượng code:<br>
+4. Chất lượng code:<br>
        -Code có thể dễ dàng thêm các tính năng mới<br>
 ___
 #**Mức độ sử dụng AI**<br>
