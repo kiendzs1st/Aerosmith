@@ -26,6 +26,11 @@ ___
      + Điều chỉnh âm lượng của nhạc nền<br>
      + Điều chỉnh âm lượng của sound effects<br>
      + Chỉnh nhạc nền<br>
+
+   -Có hệ thống tính và ghi lại điểm: <br>
+      +Có hệ thống tính điểm dựa trên loại kẻ địch mình tiêu diệt <br>
+      +Có hệ thống ghi lại highscore <br>
+      +Có hệ thống cập nhật highscore trực tiếp ngay khi đang chơi game <br>
      
    2. Giao diện và trải nghiệm người dùng:<br>
       - UI đầy đủ:<br>
