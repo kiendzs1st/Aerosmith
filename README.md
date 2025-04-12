@@ -41,6 +41,7 @@ ___
       - Animation:<br>
         + Các đối tượng trong game đều có animation<br>
         + Animation được vẽ hoàn toàn bằng tay<br>
+        + Có cả animation cuộc trượt cho background <br>
         
       - Âm thanh đầy đủ:<br>
         +Có đầy đủ âm thanh khi đang ở màn hình chính hay khi đang chơi game<br>
