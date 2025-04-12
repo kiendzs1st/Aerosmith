@@ -10,10 +10,10 @@ ___
    -Có hệ thống bắn đạn khi ấn nút<br>
    
    -Có hệ thống vật phẩm rơi khi kẻ địch bị tiêu diệt:<br>
-     +Strength: tăng sát thương khi bắn<br>
-     +Speed: tăng tốc độ di chuyển<br>
-     +Firing Speed: tăng tốc độ bắn<br>
-     +Health: Tăng máu<br>
+      +Strength: tăng sát thương khi bắn<br>
+      +Speed: tăng tốc độ di chuyển<br>
+      +Firing Speed: tăng tốc độ bắn<br>
+      +Health: Tăng máu<br>
      
    -Có hệ thống spawn kẻ địch theo từng wave:<br>
      + Kẻ địch được spawn theo một đội hình nhất định<br>
