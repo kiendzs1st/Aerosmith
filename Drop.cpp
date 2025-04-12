@@ -20,7 +20,6 @@ Drop::Drop(const char* filename, SDL_Renderer* ren, Enemies* enemies)
 Drop::~Drop()
 {
 	SDL_DestroyTexture(text);
-	cout << "Destroyed" << endl;
 }
 
 bool Drop::CheckCollison(SDL_Rect a, SDL_Rect b)
