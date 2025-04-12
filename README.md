@@ -5,7 +5,8 @@ Thể loại game: Plane Shooter- Điều khiển máy bay bắn kẻ địch
 Ngưỡng điểm mong muốn: 9-10
 ___
 #**Tại sao game này xứng đáng với ngưỡng điểm 9-10**<br>
-i. Các tính năng:<br>
+
+1. Các tính năng:<br>
    -Có hệ thống bắn đạn khi ấn nút<br>
    
    -Có hệ thống vật phẩm rơi khi kẻ địch bị tiêu diệt:<br>
